@@ -151,7 +151,10 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="login.html">Log Out</a></li>
+                            <li>
+                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                    data-target="#logoutModal">Log Out</a>
+                            </li>
                         </ul>
                     </div>
                     <!--//app-user-dropdown-->

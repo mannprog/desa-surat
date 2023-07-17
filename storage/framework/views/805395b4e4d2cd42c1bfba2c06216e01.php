@@ -33,16 +33,17 @@
                     </div>
                     <h2 class="auth-heading text-center mb-5">Masuk ke Portal Desa</h2>
                     <div class="auth-form-container text-start">
-                        <form class="auth-form login-form">
+                        <form class="auth-form login-form" action="<?php echo e(route('prosesLogin')); ?>" method="POST">
+                            <?php echo csrf_field(); ?>
                             <div class="email mb-3">
-                                <label class="sr-only" for="signin-email">Email</label>
-                                <input id="signin-email" name="signin-email" type="email"
-                                    class="form-control signin-email" placeholder="Email address" required="required">
+                                <label class="sr-only" for="username">Username / Email</label>
+                                <input id="username" name="username" type="text" class="form-control signin-email"
+                                    placeholder="Masukkan Username / Alamat Email" required="required">
                             </div>
                             <!--//form-group-->
                             <div class="password mb-3">
-                                <label class="sr-only" for="signin-password">Password</label>
-                                <input id="signin-password" name="signin-password" type="password"
+                                <label class="sr-only" for="password">Password</label>
+                                <input id="password" name="password" type="password"
                                     class="form-control signin-password" placeholder="Password" required="required">
                                 <div class="extra mt-3 row justify-content-between">
                                     <div class="col-6">

@@ -34,20 +34,26 @@
                     <h2 class="auth-heading text-center mb-4">Buat Akun untuk Portal Desa</h2>
 
                     <div class="auth-form-container text-start mx-auto">
-                        <form class="auth-form auth-signup-form">
+                        <form class="auth-form auth-signup-form" action="{{ route('prosesRegister') }}" method="POST">
+                            @csrf
                             <div class="email mb-3">
-                                <label class="sr-only" for="signup-email">Your Name</label>
-                                <input id="signup-name" name="signup-name" type="text"
-                                    class="form-control signup-name" placeholder="Full name" required="required">
+                                <label class="sr-only" for="name">Nama Lengkap</label>
+                                <input id="name" name="name" type="text" class="form-control signup-name"
+                                    placeholder="Masukkan Nama Lengkap" required="required">
                             </div>
                             <div class="email mb-3">
-                                <label class="sr-only" for="signup-email">Your Email</label>
-                                <input id="signup-email" name="signup-email" type="email"
-                                    class="form-control signup-email" placeholder="Email" required="required">
+                                <label class="sr-only" for="username">Username</label>
+                                <input id="username" name="username" type="text" class="form-control signup-name"
+                                    placeholder="Masukkan Username" required="required">
+                            </div>
+                            <div class="email mb-3">
+                                <label class="sr-only" for="email">Email</label>
+                                <input id="email" name="email" type="email" class="form-control signup-email"
+                                    placeholder="Masukkan Email" required="required">
                             </div>
                             <div class="password mb-3">
-                                <label class="sr-only" for="signup-password">Password</label>
-                                <input id="signup-password" name="signup-password" type="password"
+                                <label class="sr-only" for="password">Password</label>
+                                <input id="password" name="password" type="password"
                                     class="form-control signup-password" placeholder="Create a password"
                                     required="required">
                             </div>

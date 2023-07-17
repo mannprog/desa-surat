@@ -45,8 +45,32 @@
     </div>
     <!--//app-wrapper-->
 
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Apakah yakin untuk keluar?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">Pilih tombol "Logout" dibawah jika kamu yakin untuk mengakhiri sesi masuk.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <button class="btn btn-primary">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Javascript -->
+    <script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('admin/plugins/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('admin/plugins/popper.min.js') }}"></script>
     <script src="{{ asset('admin/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 
@@ -57,6 +81,20 @@
     <!-- Page Specific JS -->
     <script src="{{ asset('admin/js/app.js') }}"></script>
 
+    <script>
+        $(document).ready(function() {
+            $('a[data-toggle="modal"]').click(function() {
+                var target = $(this).attr('data-target');
+                $(target).modal('show');
+            });
+            $('[data-dismiss="modal"]').click(function() {
+                var target = $(this).closest('.modal');
+                $(target).modal('hide');
+            });
+        });
+    </script>
+
+    @stack('custom-script')
 </body>
 
 </html>
