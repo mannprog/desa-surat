@@ -32,6 +32,17 @@
                                 class="logo-icon me-2" src="<?php echo e(asset('landing/img/logo.png')); ?>" alt="logo"></a>
                     </div>
                     <h2 class="auth-heading text-center mb-5">Masuk ke Portal Desa</h2>
+                    <?php if(session()->has('loginError')): ?>
+                        <div class="mb-3">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <span class="alert-text"><?php echo e(session('loginError')); ?>
+
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                     <div class="auth-form-container text-start">
                         <form class="auth-form login-form" action="<?php echo e(route('prosesLogin')); ?>" method="POST">
                             <?php echo csrf_field(); ?>
@@ -87,6 +98,17 @@
     <!--//row-->
 
 
+    <script src="<?php echo e(asset('admin/plugins/jquery/jquery.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('admin/plugins/jquery-easing/jquery.easing.min.js')); ?>"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('[data-bs-dismiss="alert"]').click(function() {
+                var target = $(this).closest('.alert');
+                $(target).hide();
+            });
+        });
+    </script>
 </body>
 
 </html>

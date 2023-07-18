@@ -32,6 +32,16 @@
                                 class="logo-icon me-2" src="{{ asset('landing/img/logo.png') }}" alt="logo"></a>
                     </div>
                     <h2 class="auth-heading text-center mb-5">Masuk ke Portal Desa</h2>
+                    @if (session()->has('loginError'))
+                        <div class="mb-3">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <span class="alert-text">{{ session('loginError') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                            </div>
+                        </div>
+                    @endif
                     <div class="auth-form-container text-start">
                         <form class="auth-form login-form" action="{{ route('prosesLogin') }}" method="POST">
                             @csrf
@@ -87,6 +97,17 @@
     <!--//row-->
 
 
+    <script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('admin/plugins/jquery-easing/jquery.easing.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('[data-bs-dismiss="alert"]').click(function() {
+                var target = $(this).closest('.alert');
+                $(target).hide();
+            });
+        });
+    </script>
 </body>
 
 </html>

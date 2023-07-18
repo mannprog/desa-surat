@@ -24,7 +24,10 @@ Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'prosesRegister'])->name('prosesRegister');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard-admin', [DashboardController::class, 'indexAdmin'])->name('admin.index');
+    Route::middleware(['admin'])->group(function () {
+        Route::get('/dashboard-admin', [DashboardController::class, 'indexAdmin'])->name('admin.index');
+    });
+    
     Route::get('/dashboard-warga', [DashboardController::class, 'indexWarga'])->name('warga.index');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

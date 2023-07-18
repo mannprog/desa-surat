@@ -34,7 +34,7 @@
                     <h2 class="auth-heading text-center mb-4">Buat Akun untuk Portal Desa</h2>
 
                     <div class="auth-form-container text-start mx-auto">
-                        <form class="auth-form auth-signup-form" action="<?php echo e(route('prosesRegister')); ?>" method="POST">
+                        <form class="auth-form auth-signup-form" id="itemForm" name="itemForm" method="post">
                             <?php echo csrf_field(); ?>
                             <div class="email mb-3">
                                 <label class="sr-only" for="name">Nama Lengkap</label>
@@ -70,7 +70,8 @@
                             <!--//extra-->
 
                             <div class="text-center">
-                                <button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto">Kirim
+                                <button type="button" class="btn app-btn-primary w-100 theme-btn mx-auto"
+                                    id="saveBtn">Kirim
                                     Pendaftaran</button>
                             </div>
                         </form>
@@ -98,7 +99,54 @@
     </div>
     <!--//row-->
 
+    <script src="<?php echo e(asset('admin/plugins/jquery/jquery.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('admin/plugins/jquery-easing/jquery.easing.min.js')); ?>"></script>
 
+    <!-- SweetAlert2 -->
+    <script src="<?php echo e(asset('library/http_cdn.jsdelivr.net_npm_sweetalert2@11.js')); ?>"></script>
+    <script src="<?php echo e(asset('library/http_cdnjs.cloudflare.com_ajax_libs_toastr.js_latest_toastr.min.js')); ?>"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#saveBtn').click(function(e) {
+                e.preventDefault();
+
+                var formData = new FormData($('#itemForm')[0]);
+                $.ajax({
+                    data: formData,
+                    url: "<?php echo e(route('prosesRegister')); ?>",
+                    contentType: false,
+                    processData: false,
+                    type: "POST",
+                    success: function(response) {
+                        if (response.error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: response.message,
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: response.message,
+                            }).then(function() {
+                                // Redirect to the login page on success
+                                window.location.href = "<?php echo e(route('login')); ?>";
+                            });
+                        }
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Akun Portal telah dibuat. Silahkan coba akun lain...',
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -33,7 +34,7 @@ class AuthController extends Controller
             }
         }
 
-        return back()->with('loginError', 'Email atau Password Salah!');
+        return back()->with('loginError', 'Username/Email atau Password Salah!');
     }
 
     public function register()
@@ -43,28 +44,35 @@ class AuthController extends Controller
 
     public function prosesRegister()
     {
-        $validatedData = request()->validate([
+        $validator = Validator::make(request()->all(), [
             'name' => 'required|string',
             'username' => 'required|string|unique:users,username',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:4',
         ]);
-
-        try {
-            User::create([
-                'name' => $validatedData['name'],
-                'username' => $validatedData['username'],
-                'email' => $validatedData['email'],
-                'password' => password_hash($validatedData['password'], PASSWORD_DEFAULT),
-            ]);
-
-        } catch (InvalidArgumentException $e) {
+    
+        if ($validator->fails()) {
+            $errorMessage = $validator->errors()->first();
+    
+            // Return the JSON response with the error message
             return response()->json([
-                'message' => $e->getMessage(),
+                'error' => true,
+                'message' => $errorMessage,
             ], 400);
         }
-        
-        return redirect()->to('/login');
+    
+        // If validation passes, create the user and return the JSON response
+        User::create([
+            'name' => request('name'),
+            'username' => request('username'),
+            'email' => request('email'),
+            'password' => password_hash(request('password'), PASSWORD_DEFAULT),
+        ]);
+    
+        return response()->json([
+            'error' => false,
+            'message' => 'Akun Portal berhasil dibuat. Silahkan Login...',
+        ]);
     }
 
     public function logout(Request $request)
