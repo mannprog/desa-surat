@@ -95,7 +95,9 @@
                             <li class="submenu-item"><a
                                     class="submenu-link <?php echo e(Route::is('kelola.admin*') ? 'active' : ''); ?>"
                                     href="<?php echo e(route('kelola.admin.index')); ?>">Admin</a></li>
-                            <li class="submenu-item"><a class="submenu-link" href="#">Warga</a>
+                            <li class="submenu-item"><a
+                                    class="submenu-link <?php echo e(Route::is('kelola.warga*') ? 'active' : ''); ?>"
+                                    href="<?php echo e(route('kelola.warga.index')); ?>">Warga</a>
                             </li>
                         </ul>
                     </div>

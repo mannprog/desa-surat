@@ -95,7 +95,9 @@
                             <li class="submenu-item"><a
                                     class="submenu-link {{ Route::is('kelola.admin*') ? 'active' : '' }}"
                                     href="{{ route('kelola.admin.index') }}">Admin</a></li>
-                            <li class="submenu-item"><a class="submenu-link" href="#">Warga</a>
+                            <li class="submenu-item"><a
+                                    class="submenu-link {{ Route::is('kelola.warga*') ? 'active' : '' }}"
+                                    href="{{ route('kelola.warga.index') }}">Warga</a>
                             </li>
                         </ul>
                     </div>

@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\UserAdminController;
+use App\Http\Controllers\UserWargaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,7 +31,8 @@ Route::middleware(['auth'])->group(function () {
 
         Route::prefix('/dashboard-admin/users/')->group(function () {
             Route::name('kelola.')->group(function(){
-                Route::resource('admin', UserAdminController::class);
+                Route::resource('admin', UserAdminController::class)->except('create');
+                Route::resource('warga', UserWargaController::class)->except('create');
             });
         });
     });

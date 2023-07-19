@@ -1,51 +1,65 @@
-@extends('auth.admin.layouts.app', ['title' => 'Edit User'])
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
             <div class="row justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title">Edit User - {{ $admin->name }}</h1>
+                    <h1 class="app-page-title">Edit User - <?php echo e($warga->name); ?></h1>
                 </div>
                 <div class="col-auto">
-                    <a href="{{ route('kelola.admin.index') }}" class="btn btn-sm btn-secondary shadow-sm">
+                    <a href="<?php echo e(route('kelola.warga.index')); ?>" class="btn btn-sm btn-secondary shadow-sm">
                         Kembali</a>
                 </div>
             </div>
 
             <div class="app-card app-card-chart h-100 shadow-sm">
                 <div class="app-card-body p-3 p-lg-4">
-                    <form action="{{ route('kelola.admin.update', $admin->id) }}" method="POST"
+                    <form action="<?php echo e(route('kelola.warga.update', $warga->id)); ?>" method="POST"
                         enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="admin_id" id="admin_id" value="{{ $admin->id }}">
+                        <?php echo csrf_field(); ?>
+                        <?php echo method_field('PUT'); ?>
+                        <input type="hidden" name="warga_id" id="warga_id" value="<?php echo e($warga->id); ?>">
                         <div class="modal-body">
                             <div class="row mb-3">
                                 <div class="col-lg-6">
                                     <label for="name" class="form-label">Nama Lengkap<span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control form-control-sm" id="name" name="name"
-                                        autofocus required value="{{ old('name', $admin->name) }}">
+                                        autofocus required value="<?php echo e(old('name', $warga->name)); ?>">
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="username" class="form-label">Username<span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control form-control-sm" id="username"
-                                        name="username" required value="{{ old('username', $admin->username) }}">
+                                        name="username" required value="<?php echo e(old('username', $warga->username)); ?>">
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-lg-6">
                                     <label for="email" class="form-label">Email<span class="text-danger">*</span></label>
                                     <input type="email" class="form-control form-control-sm" id="email" name="email"
-                                        required value="{{ old('email', $admin->email) }}">
+                                        required value="<?php echo e(old('email', $warga->email)); ?>">
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="no_hp" class="form-label">No Handphone<span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control form-control-sm" id="no_hp" name="no_hp"
-                                        required value="{{ old('no_hp', $admin->adminDetail->no_hp) }}">
+                                        required value="<?php echo e(old('no_hp', $warga->wargaDetail->no_hp)); ?>">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-lg-6">
+                                    <label for="no_kk" class="form-label">No. Kartu Keluarga<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control form-control-sm" id="no_kk" name="no_kk"
+                                        autofocus required value="<?php echo e(old('no_kk', $warga->wargaDetail->no_kk)); ?>">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="nik" class="form-label">Nomor Induk Kependudukan<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control form-control-sm" id="nik" name="nik"
+                                        required value="<?php echo e(old('nik', $warga->wargaDetail->nik)); ?>">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -54,14 +68,14 @@
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control form-control-sm" id="tempat_lahir"
                                         name="tempat_lahir" required
-                                        value="{{ old('tempat_lahir', $admin->adminDetail->tempat_lahir) }}">
+                                        value="<?php echo e(old('tempat_lahir', $warga->wargaDetail->tempat_lahir)); ?>">
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="tanggal_lahir" class="form-label">Tanggal Lahir<span
                                             class="text-danger">*</span></label>
                                     <input type="date" class="form-control form-control-sm" id="tanggal_lahir"
                                         name="tanggal_lahir" required
-                                        value="{{ old('tanggal_lahir', $admin->adminDetail->tanggal_lahir) }}">
+                                        value="<?php echo e(old('tanggal_lahir', $warga->wargaDetail->tanggal_lahir)); ?>">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -72,99 +86,65 @@
                                         id="jenis_kelamin" required>
                                         <option selected disabled>---Pilih Jenis Kelamin---</option>
                                         <option value="l"
-                                            {{ old('jenis_kelamin', $admin->adminDetail->jenis_kelamin) == 'l' ? 'selected' : '' }}>
+                                            <?php echo e(old('jenis_kelamin', $warga->wargaDetail->jenis_kelamin) == 'l' ? 'selected' : ''); ?>>
                                             Laki-laki</option>
                                         <option value="p"
-                                            {{ old('jenis_kelamin', $admin->adminDetail->jenis_kelamin) == 'p' ? 'selected' : '' }}>
+                                            <?php echo e(old('jenis_kelamin', $warga->wargaDetail->jenis_kelamin) == 'p' ? 'selected' : ''); ?>>
                                             Perempuan</option>
                                     </select>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="agama" class="form-label">Agama<span class="text-danger">*</span></label>
+                                    <label for="agama" class="form-label">Agama<span
+                                            class="text-danger">*</span></label>
                                     <select class="form-select" aria-label="Default select example" name="agama"
                                         id="agama" required>
                                         <option selected disabled>---Pilih Agama---</option>
                                         <option value="islam"
-                                            {{ old('agama', $admin->adminDetail->agama) == 'islam' ? 'selected' : '' }}>
+                                            <?php echo e(old('agama', $warga->wargaDetail->agama) == 'islam' ? 'selected' : ''); ?>>
                                             Islam</option>
                                         <option value="katolik"
-                                            {{ old('agama', $admin->adminDetail->agama) == 'katolik' ? 'selected' : '' }}>
+                                            <?php echo e(old('agama', $warga->wargaDetail->agama) == 'katolik' ? 'selected' : ''); ?>>
                                             Kristen Katolik</option>
                                         <option value="protestan"
-                                            {{ old('agama', $admin->adminDetail->agama) == 'protestan' ? 'selected' : '' }}>
+                                            <?php echo e(old('agama', $warga->wargaDetail->agama) == 'protestan' ? 'selected' : ''); ?>>
                                             Kristen Protestan</option>
                                         <option value="hindu"
-                                            {{ old('agama', $admin->adminDetail->agama) == 'hindu' ? 'selected' : '' }}>
+                                            <?php echo e(old('agama', $warga->wargaDetail->agama) == 'hindu' ? 'selected' : ''); ?>>
                                             Hindu</option>
                                         <option value="buddha"
-                                            {{ old('agama', $admin->adminDetail->agama) == 'buddha' ? 'selected' : '' }}>
+                                            <?php echo e(old('agama', $warga->wargaDetail->agama) == 'buddha' ? 'selected' : ''); ?>>
                                             Buddha</option>
                                         <option value="khonghucu"
-                                            {{ old('agama', $admin->adminDetail->agama) == 'khonghucu' ? 'selected' : '' }}>
+                                            <?php echo e(old('agama', $warga->wargaDetail->agama) == 'khonghucu' ? 'selected' : ''); ?>>
                                             Khonghucu</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <div class="col-lg-6">
-                                    <label for="pendidikan_terakhir" class="form-label">Pendidikan Terakhir<span
-                                            class="text-danger">*</span></label>
-                                    <select class="form-select" aria-label="Default select example"
-                                        name="pendidikan_terakhir" id="pendidikan_terakhir" required>
-                                        <option selected disabled>---Pilih Pendidikan Terakhir---</option>
-                                        <option value="sma"
-                                            {{ old('pendidikan_terakhir', $admin->adminDetail->pendidikan_terakhir) === 'sma' ? 'selected' : '' }}>
-                                            SMA/Sederajat</option>
-                                        <option value="d1"
-                                            {{ old('pendidikan_terakhir', $admin->adminDetail->pendidikan_terakhir) === 'd1' ? 'selected' : '' }}>
-                                            D1/Sederajat</option>
-                                        <option value="d2"
-                                            {{ old('pendidikan_terakhir', $admin->adminDetail->pendidikan_terakhir) === 'd2' ? 'selected' : '' }}>
-                                            D2/Sederajat</option>
-                                        <option value="d3"
-                                            {{ old('pendidikan_terakhir', $admin->adminDetail->pendidikan_terakhir) === 'd3' ? 'selected' : '' }}>
-                                            D3/Sederajat</option>
-                                        <option value="s1"
-                                            {{ old('pendidikan_terakhir', $admin->adminDetail->pendidikan_terakhir) === 's1' ? 'selected' : '' }}>
-                                            S1/Sederajat</option>
-                                        <option value="s2"
-                                            {{ old('pendidikan_terakhir', $admin->adminDetail->pendidikan_terakhir) === 's2' ? 'selected' : '' }}>
-                                            S2/Sederajat</option>
-                                        <option value="s3"
-                                            {{ old('pendidikan_terakhir', $admin->adminDetail->pendidikan_terakhir) === 's3' ? 'selected' : '' }}>
-                                            S3/Sederajat</option>
+                                    <label for="gol_darah" class="form-label">Golongan Darah</label>
+                                    <select class="form-select" aria-label="Default select example" name="gol_darah"
+                                        id="gol_darah">
+                                        <option selected disabled>---Pilih Golongan Darah---</option>
+                                        <option value="a"
+                                            <?php echo e(old('gol_darah', $warga->wargaDetail->gol_darah) === 'a' ? 'selected' : ''); ?>>
+                                            A</option>
+                                        <option value="b"
+                                            <?php echo e(old('gol_darah', $warga->wargaDetail->gol_darah) === 'b' ? 'selected' : ''); ?>>
+                                            B</option>
+                                        <option value="ab"
+                                            <?php echo e(old('gol_darah', $warga->wargaDetail->gol_darah) === 'ab' ? 'selected' : ''); ?>>
+                                            AB</option>
+                                        <option value="o"
+                                            <?php echo e(old('gol_darah', $warga->wargaDetail->gol_darah) === 'o' ? 'selected' : ''); ?>>
+                                            O</option>
                                     </select>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="jabatan" class="form-label">Jabatan<span
-                                            class="text-danger">*</span></label>
-                                    <select class="form-select" aria-label="Default select example" name="jabatan"
-                                        id="jabatan" required>
-                                        <option selected disabled>---Pilih Jabatan---</option>
-                                        <option value="admin"
-                                            {{ old('jabatan', $admin->adminDetail->jabatan) === 'admin' ? 'selected' : '' }}>
-                                            Admin</option>
-                                        <option value="kepaladesa"
-                                            {{ old('jabatan', $admin->adminDetail->jabatan) === 'kepaladesa' ? 'selected' : '' }}>
-                                            Kepala Desa</option>
-                                        <option value="kasipelayanan"
-                                            {{ old('jabatan', $admin->adminDetail->jabatan) === 'kasipelayanan' ? 'selected' : '' }}>
-                                            KASI Pelayanan</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-lg-6">
-                                    <label for="no_sk" class="form-label">No SK Pengangkatan<span
-                                            class="text-danger">*</span></label>
-                                    <input type="text" class="form-control form-control-sm" id="no_sk"
-                                        name="no_sk" required value="{{ old('no_sk', $admin->adminDetail->no_sk) }}">
-                                </div>
-                                <div class="col-lg-6">
-                                    <label for="tmt_sk" class="form-label">TMT SK Pengangkatan<span
-                                            class="text-danger">*</span></label>
-                                    <input type="date" class="form-control form-control-sm" id="tmt_sk"
-                                        name="tmt_sk" required value="{{ old('tmt_sk', $admin->adminDetail->tmt_sk) }}">
+                                    <label for="pekerjaan" class="form-label">Pekerjaan</label>
+                                    <input type="text" class="form-control form-control-sm" id="pekerjaan"
+                                        name="pekerjaan" required
+                                        value="<?php echo e(old('pekerjaan', $warga->wargaDetail->pekerjaan)); ?>">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -175,16 +155,16 @@
                                         id="status">
                                         <option selected disabled>---Pilih Status Perkawinan---</option>
                                         <option value="belumkawin"
-                                            {{ old('status', $admin->adminDetail->status) === 'belumkawin' ? 'selected' : '' }}>
+                                            <?php echo e(old('status', $warga->wargaDetail->status) === 'belumkawin' ? 'selected' : ''); ?>>
                                             Belum Kawin</option>
                                         <option value="kawin"
-                                            {{ old('status', $admin->adminDetail->status) === 'kawin' ? 'selected' : '' }}>
+                                            <?php echo e(old('status', $warga->wargaDetail->status) === 'kawin' ? 'selected' : ''); ?>>
                                             Kawin</option>
                                         <option value="ceraihidup"
-                                            {{ old('status', $admin->adminDetail->status) === 'ceraihidup' ? 'selected' : '' }}>
+                                            <?php echo e(old('status', $warga->wargaDetail->status) === 'ceraihidup' ? 'selected' : ''); ?>>
                                             Cerai Hidup</option>
                                         <option value="ceraimati"
-                                            {{ old('status', $admin->adminDetail->status) === 'ceraimati' ? 'selected' : '' }}>
+                                            <?php echo e(old('status', $warga->wargaDetail->status) === 'ceraimati' ? 'selected' : ''); ?>>
                                             Cerai Mati</option>
                                     </select>
                                 </div>
@@ -192,7 +172,7 @@
                                     <label for="pasangan" class="form-label">Nama Pasangan<span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control form-control-sm" id="pasangan"
-                                        name="pasangan" required value="{{ old('pasangan', $admin->pasangan) }}"
+                                        name="pasangan" required value="<?php echo e(old('pasangan', $warga->pasangan)); ?>"
                                         aria-describedby="pasanganHelp">
                                     <div id="pasanganHelp" class="form-text">Bila tidak ada isi -.</div>
                                 </div>
@@ -202,13 +182,13 @@
                                     <label for="ayah" class="form-label">Nama Ayah<span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control form-control-sm" id="ayah"
-                                        name="ayah" required value="{{ old('ayah', $admin->ayah) }}">
+                                        name="ayah" required value="<?php echo e(old('ayah', $warga->ayah)); ?>">
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="ibu" class="form-label">Nama Ibu<span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control form-control-sm" id="ibu"
-                                        name="ibu" required value="{{ old('ibu', $admin->ibu) }}">
+                                        name="ibu" required value="<?php echo e(old('ibu', $warga->ibu)); ?>">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -216,16 +196,19 @@
                                     <label for="anak" class="form-label">Nama Anak<span
                                             class="text-danger">*</span></label>
                                     <input id="anak" type="hidden" name="anak" required
-                                        value="{{ old('anak', $admin->adminDetail->anak) }}" aria-describedby="anakHelp">
+                                        value="<?php echo e(old('anak', $warga->wargaDetail->anak)); ?>" aria-describedby="anakHelp">
                                     <trix-editor input="anak"></trix-editor>
                                     <div id="anakHelp" class="form-text">Bila tidak ada isi -.</div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="alamat" class="form-label">Alamat<span
+                                    <label for="alamat" class="form-label">Alamat Lengkap<span
                                             class="text-danger">*</span></label>
                                     <input id="alamat" type="hidden" name="alamat" required
-                                        value="{{ old('alamat', $admin->adminDetail->alamat) }}">
+                                        value="<?php echo e(old('alamat', $warga->wargaDetail->alamat)); ?>"
+                                        aria-describedby="alamatHelp">
                                     <trix-editor input="alamat"></trix-editor>
+                                    <div id="alamatHelp" class="form-text">Ex: Dsn.Cileles RT.001 RW.002, Ds.Cileles,
+                                        Kec.Jatinangor, Kab.Sumedang 45363.</div>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -244,9 +227,9 @@
             </div>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('custom-scripts')
+<?php $__env->startPush('custom-scripts'); ?>
     <script>
         document.addEventListener('trix-file-accept', function(e) {
             e.preventDefault();
@@ -264,4 +247,6 @@
             reader.readAsDataURL(file);
         });
     </script>
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('auth.admin.layouts.app', ['title' => 'Edit User'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\desa-surat\resources\views/auth/admin/pages/users/warga/component/edit.blade.php ENDPATH**/ ?>

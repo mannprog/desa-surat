@@ -53,6 +53,14 @@ class UserFactory extends Factory
                     'no_sk' => 'SK/01/011/VII/2023',
                     'status' => 'belumkawin',
                 ]);
+            } elseif($user->id == 2) {
+                $user->wargaDetail()->create([
+                    'no_kk' => fake('id_ID')->randomNumber(),
+                    'nik' => fake('id_ID')->randomNumber(),
+                    'jenis_kelamin' => 'p',
+                    'agama' => 'khonghucu',
+                    'status' => 'belumkawin',
+                ]);
             }
         });
     }

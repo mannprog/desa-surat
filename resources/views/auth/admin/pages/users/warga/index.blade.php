@@ -1,11 +1,11 @@
-@extends('auth.admin.layouts.app', ['title' => 'Kelola Admin'])
+@extends('auth.admin.layouts.app', ['title' => 'Kelola Warga'])
 
 @section('content')
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
             <div class="row justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title">Kelola Admin</h1>
+                    <h1 class="app-page-title">Kelola Warga</h1>
                 </div>
                 <div class="col-auto">
                     <button id="createData" class="btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm"></i>
@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    @include('auth.admin.pages.users.admin.component.add-modal')
+    @include('auth.admin.pages.users.warga.component.add-modal')
 @endsection
 
 @push('custom-styles')
@@ -73,14 +73,14 @@
                 var formData = new FormData($('#itemForm')[0]);
                 $.ajax({
                     data: formData,
-                    url: "{{ route('kelola.admin.store') }}",
+                    url: "{{ route('kelola.warga.store') }}",
                     contentType: false,
                     processData: false,
                     type: "POST",
                     success: function(data) {
                         $('#itemForm').trigger("reset");
                         $('#modal-md').modal('hide');
-                        $('#useradmin-table').DataTable().draw();
+                        $('#userwarga-table').DataTable().draw();
                         Swal.fire({
                             icon: 'success',
                             title: 'Success',
@@ -106,19 +106,19 @@
                 e.preventDefault();
                 var confirmation = confirm("Apakah yakin untuk menghapus?");
                 if (confirmation) {
-                    var admin_id = $(this).data('id');
+                    var warga_id = $(this).data('id');
                     var formData = new FormData($('#deleteDoc')[0]);
                     $('.deleteBtn').attr('disabled', 'disabled');
                     $('.deleteBtn').html('...');
                     $.ajax({
                         data: formData,
-                        url: "{{ route('kelola.admin.index') }}" + '/' + admin_id,
+                        url: "{{ route('kelola.warga.index') }}" + '/' + warga_id,
                         contentType: false,
                         processData: false,
                         type: "POST",
                         success: function(data) {
                             $('#deleteDoc').trigger("reset");
-                            $('#useradmin-table').DataTable().draw();
+                            $('#userwarga-table').DataTable().draw();
                             toastr.success(data.message);
                         },
                         error: function(data) {

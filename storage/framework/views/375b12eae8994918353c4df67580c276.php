@@ -25,7 +25,6 @@
     </div>
 
     <?php echo $__env->make('auth.admin.pages.users.admin.component.add-modal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-    <?php echo $__env->make('auth.admin.pages.users.admin.component.edit-modal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startPush('custom-styles'); ?>
@@ -93,76 +92,6 @@
                     error: function(data) {
                         $('#saveBtn').removeAttr('disabled');
                         $('#saveBtn').html("Simpan");
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oppss',
-                            text: data.responseJSON.message,
-                        });
-                        $.each(data.responseJSON.errors, function(index, value) {
-                            toastr.error(value);
-                        });
-                    }
-                });
-            });
-
-            $('body').on('click', '#editData', function() {
-                var admin_id = $(this).data('id');
-                $.get("<?php echo e(route('kelola.admin.index')); ?>" + '/' + admin_id + '/edit', function(data) {
-                    $('#modal-edit').modal('show');
-                    setTimeout(function() {
-                        $('#name').focus();
-                    }, 500);
-                    $('.modal-title').html("Ubah Data User");
-                    $('#updateBtn').removeAttr('disabled');
-                    $('#updateBtn').html("Simpan Perubahan");
-                    $('#edit_admin_id').val(data.id);
-                    $('#edit_name').val(data.name);
-                    $('#edit_username').val(data.username);
-                    $('#edit_email').val(data.email);
-                    $('#edit_foto').val(data.foto);
-                    $('#edit_tempat_lahir').val(data.admin_detail.tempat_lahir);
-                    $('#edit_tanggal_lahir').val(data.admin_detail.tanggal_lahir);
-                    $('#edit_jenis_kelamin').val(data.admin_detail.jenis_kelamin);
-                    $('#edit_agama').val(data.admin_detail.agama);
-                    $('#edit_pendidikan_terakhir').val(data.admin_detail.pendidikan_terakhir);
-                    $('#edit_jabatan').val(data.admin_detail.jabatan);
-                    $('#edit_tmt_sk').val(data.admin_detail.tmt_sk);
-                    $('#edit_no_sk').val(data.admin_detail.no_sk);
-                    $('#edit_status').val(data.admin_detail.status);
-                    $('#edit_ayah').val(data.admin_detail.ayah);
-                    $('#edit_ibu').val(data.admin_detail.ibu);
-                    $('#edit_pasangan').val(data.admin_detail.pasangan);
-                    $('#edit_anak').val(data.admin_detail.anak);
-                    $('#edit_alamat').val(data.admin_detail.alamat);
-                    $('#edit_no_hp').val(data.admin_detail.no_hp);
-                });
-            });
-
-            $('#updateBtn').click(function(e) {
-                e.preventDefault();
-                var admin_id = $(this).data('id');
-                var formData = new FormData($('#updateForm')[0]);
-                $('#updateBtn').attr('disabled', 'disabled');
-                $('#updateBtn').html('Simpan ...');
-                $.ajax({
-                    data: formData,
-                    url: "<?php echo e(route('kelola.admin.index')); ?>" + '/' + admin_id,
-                    contentType: false,
-                    processData: false,
-                    type: "POST",
-                    success: function(data) {
-                        $('#updateForm').trigger("reset");
-                        $('#modal-edit').modal('hide');
-                        $('#useradmin-table').DataTable().draw();
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success',
-                            text: data.message,
-                        });
-                    },
-                    error: function(data) {
-                        $('#updateBtn').removeAttr('disabled');
-                        $('#updateBtn').html("Simpan");
                         Swal.fire({
                             icon: 'error',
                             title: 'Oppss',

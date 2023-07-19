@@ -1,11 +1,11 @@
-@extends('auth.admin.layouts.app', ['title' => 'Kelola Admin'])
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
             <div class="row justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title">Kelola Admin</h1>
+                    <h1 class="app-page-title">Kelola Warga</h1>
                 </div>
                 <div class="col-auto">
                     <button id="createData" class="btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm"></i>
@@ -16,36 +16,38 @@
             <div class="app-card app-card-chart h-100 shadow-sm">
                 <div class="app-card-body p-3 p-lg-4">
                     <div class="table-responsive">
-                        {{ $dataTable->table(['class' => 'table align-items-center display responsive nowrap']) }}
+                        <?php echo e($dataTable->table(['class' => 'table align-items-center display responsive nowrap'])); ?>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    @include('auth.admin.pages.users.admin.component.add-modal')
-@endsection
+    <?php echo $__env->make('auth.admin.pages.users.warga.component.add-modal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopSection(); ?>
 
-@push('custom-styles')
+<?php $__env->startPush('custom-styles'); ?>
     <!-- DataTables -->
-    <link rel="stylesheet" href="{{ asset('library/http_cdn.datatables.net_1.13.4_css_dataTables.bootstrap5.css') }}">
+    <link rel="stylesheet" href="<?php echo e(asset('library/http_cdn.datatables.net_1.13.4_css_dataTables.bootstrap5.css')); ?>">
     <link rel="stylesheet"
-        href="{{ asset('library/http_cdn.datatables.net_responsive_2.4.1_css_responsive.bootstrap5.css') }}">
-    <link rel="stylesheet" href="{{ asset('library/http_cdnjs.cloudflare.com_ajax_libs_toastr.js_latest_toastr.css') }}">
-@endpush
+        href="<?php echo e(asset('library/http_cdn.datatables.net_responsive_2.4.1_css_responsive.bootstrap5.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('library/http_cdnjs.cloudflare.com_ajax_libs_toastr.js_latest_toastr.css')); ?>">
+<?php $__env->stopPush(); ?>
 
-@push('custom-scripts')
+<?php $__env->startPush('custom-scripts'); ?>
     <!-- DataTables  & Plugins -->
-    <script src="{{ asset('library/http_cdn.datatables.net_1.13.4_js_jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('library/http_cdn.datatables.net_1.13.4_js_dataTables.bootstrap5.js') }}"></script>
-    <script src="{{ asset('library/http_cdn.datatables.net_responsive_2.4.1_js_dataTables.responsive.js') }}"></script>
-    <script src="{{ asset('library/http_cdn.datatables.net_responsive_2.4.1_js_responsive.bootstrap4.js') }}"></script>
+    <script src="<?php echo e(asset('library/http_cdn.datatables.net_1.13.4_js_jquery.dataTables.js')); ?>"></script>
+    <script src="<?php echo e(asset('library/http_cdn.datatables.net_1.13.4_js_dataTables.bootstrap5.js')); ?>"></script>
+    <script src="<?php echo e(asset('library/http_cdn.datatables.net_responsive_2.4.1_js_dataTables.responsive.js')); ?>"></script>
+    <script src="<?php echo e(asset('library/http_cdn.datatables.net_responsive_2.4.1_js_responsive.bootstrap4.js')); ?>"></script>
 
-    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+    <?php echo e($dataTable->scripts(attributes: ['type' => 'module'])); ?>
+
 
     <script>
         $(document).ready(function() {
-            var successMessage = '{{ session('success') }}';
+            var successMessage = '<?php echo e(session('success')); ?>';
 
             if (successMessage) {
                 Swal.fire({
@@ -73,14 +75,14 @@
                 var formData = new FormData($('#itemForm')[0]);
                 $.ajax({
                     data: formData,
-                    url: "{{ route('kelola.admin.store') }}",
+                    url: "<?php echo e(route('kelola.warga.store')); ?>",
                     contentType: false,
                     processData: false,
                     type: "POST",
                     success: function(data) {
                         $('#itemForm').trigger("reset");
                         $('#modal-md').modal('hide');
-                        $('#useradmin-table').DataTable().draw();
+                        $('#userwarga-table').DataTable().draw();
                         Swal.fire({
                             icon: 'success',
                             title: 'Success',
@@ -106,19 +108,19 @@
                 e.preventDefault();
                 var confirmation = confirm("Apakah yakin untuk menghapus?");
                 if (confirmation) {
-                    var admin_id = $(this).data('id');
+                    var warga_id = $(this).data('id');
                     var formData = new FormData($('#deleteDoc')[0]);
                     $('.deleteBtn').attr('disabled', 'disabled');
                     $('.deleteBtn').html('...');
                     $.ajax({
                         data: formData,
-                        url: "{{ route('kelola.admin.index') }}" + '/' + admin_id,
+                        url: "<?php echo e(route('kelola.warga.index')); ?>" + '/' + warga_id,
                         contentType: false,
                         processData: false,
                         type: "POST",
                         success: function(data) {
                             $('#deleteDoc').trigger("reset");
-                            $('#useradmin-table').DataTable().draw();
+                            $('#userwarga-table').DataTable().draw();
                             toastr.success(data.message);
                         },
                         error: function(data) {
@@ -132,4 +134,6 @@
             });
         });
     </script>
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('auth.admin.layouts.app', ['title' => 'Kelola Warga'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\desa-surat\resources\views/auth/admin/pages/users/warga/index.blade.php ENDPATH**/ ?>

@@ -43,4 +43,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(AdminDetail::class);
     }
+
+    public function wargaDetail()
+    {
+        return $this->hasOne(WargaDetail::class);
+    }
 }
