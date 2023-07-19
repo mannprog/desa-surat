@@ -246,7 +246,7 @@
                                         <div class="col-6 col-lg-8">
                                             <p>
                                                 @if ($admin->adminDetail->ayah)
-                                                    {{ $admin->adminDetail->ayah }},
+                                                    {{ $admin->adminDetail->ayah }} /
                                                 @else
                                                     -
                                                 @endif

@@ -46,6 +46,15 @@
 
     <script>
         $(document).ready(function() {
+            var successMessage = '{{ session('success') }}';
+
+            if (successMessage) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: successMessage,
+                });
+            }
 
             $('#createData').click(function() {
                 setTimeout(function() {
@@ -95,46 +104,47 @@
             });
 
             $('body').on('click', '#editData', function() {
-                var petugas_id = $(this).data('id');
-                $.get("{{ route('kelola.admin.index') }}" + '/' + petugas_id + '/edit', function(data) {
+                var admin_id = $(this).data('id');
+                $.get("{{ route('kelola.admin.index') }}" + '/' + admin_id + '/edit', function(data) {
                     $('#modal-edit').modal('show');
                     setTimeout(function() {
                         $('#name').focus();
                     }, 500);
-                    $('.modal-title').html("Ubah Data Petugas");
+                    $('.modal-title').html("Ubah Data User");
                     $('#updateBtn').removeAttr('disabled');
                     $('#updateBtn').html("Simpan Perubahan");
-                    $('#edit_petugas_id').val(data.id);
+                    $('#edit_admin_id').val(data.id);
                     $('#edit_name').val(data.name);
                     $('#edit_username').val(data.username);
                     $('#edit_email').val(data.email);
-                    $('#edit_nip').val(data.petugas_detail.nip);
-                    $('#edit_nuptk').val(data.petugas_detail.nuptk);
-                    $('#edit_nik').val(data.petugas_detail.nik);
-                    $('#edit_jenis_kelamin').val(data.petugas_detail.jenis_kelamin);
-                    $('#edit_tempat_lahir').val(data.petugas_detail.tempat_lahir);
-                    $('#edit_tanggal_lahir').val(data.petugas_detail.tanggal_lahir);
-                    $('#edit_status').val(data.petugas_detail.status);
-                    $('#edit_alamat').val(data.petugas_detail.alamat);
-                    $('#edit_pendidikan_terakhir').val(data.petugas_detail.pendidikan_terakhir);
-                    $('#edit_no_handphone').val(data.user_kontak.no_handphone);
-                    $('#edit_facebook').val(data.user_kontak.facebook);
-                    $('#edit_instagram').val(data.user_kontak.instagram);
-                    $('#edit_twitter').val(data.user_kontak.twitter);
                     $('#edit_foto').val(data.foto);
-                    $('#edit_role').val(data.roles[0].id);
+                    $('#edit_tempat_lahir').val(data.admin_detail.tempat_lahir);
+                    $('#edit_tanggal_lahir').val(data.admin_detail.tanggal_lahir);
+                    $('#edit_jenis_kelamin').val(data.admin_detail.jenis_kelamin);
+                    $('#edit_agama').val(data.admin_detail.agama);
+                    $('#edit_pendidikan_terakhir').val(data.admin_detail.pendidikan_terakhir);
+                    $('#edit_jabatan').val(data.admin_detail.jabatan);
+                    $('#edit_tmt_sk').val(data.admin_detail.tmt_sk);
+                    $('#edit_no_sk').val(data.admin_detail.no_sk);
+                    $('#edit_status').val(data.admin_detail.status);
+                    $('#edit_ayah').val(data.admin_detail.ayah);
+                    $('#edit_ibu').val(data.admin_detail.ibu);
+                    $('#edit_pasangan').val(data.admin_detail.pasangan);
+                    $('#edit_anak').val(data.admin_detail.anak);
+                    $('#edit_alamat').val(data.admin_detail.alamat);
+                    $('#edit_no_hp').val(data.admin_detail.no_hp);
                 });
             });
 
             $('#updateBtn').click(function(e) {
                 e.preventDefault();
-                var petugas_id = $(this).data('id');
+                var admin_id = $(this).data('id');
                 var formData = new FormData($('#updateForm')[0]);
                 $('#updateBtn').attr('disabled', 'disabled');
                 $('#updateBtn').html('Simpan ...');
                 $.ajax({
                     data: formData,
-                    url: "{{ route('kelola.admin.index') }}" + '/' + petugas_id,
+                    url: "{{ route('kelola.admin.index') }}" + '/' + admin_id,
                     contentType: false,
                     processData: false,
                     type: "POST",
@@ -167,13 +177,13 @@
                 e.preventDefault();
                 var confirmation = confirm("Apakah yakin untuk menghapus?");
                 if (confirmation) {
-                    var petugas_id = $(this).data('id');
+                    var admin_id = $(this).data('id');
                     var formData = new FormData($('#deleteDoc')[0]);
                     $('.deleteBtn').attr('disabled', 'disabled');
                     $('.deleteBtn').html('...');
                     $.ajax({
                         data: formData,
-                        url: "{{ route('kelola.admin.index') }}" + '/' + petugas_id,
+                        url: "{{ route('kelola.admin.index') }}" + '/' + admin_id,
                         contentType: false,
                         processData: false,
                         type: "POST",

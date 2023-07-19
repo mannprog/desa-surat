@@ -249,7 +249,7 @@
                                         <div class="col-6 col-lg-8">
                                             <p>
                                                 <?php if($admin->adminDetail->ayah): ?>
-                                                    <?php echo e($admin->adminDetail->ayah); ?>,
+                                                    <?php echo e($admin->adminDetail->ayah); ?> /
                                                 <?php else: ?>
                                                     -
                                                 <?php endif; ?>

@@ -21,6 +21,16 @@
     <!-- App CSS -->
     <link id="theme-style" rel="stylesheet" href="<?php echo e(asset('admin/css/portal.css')); ?>">
 
+    <!-- Custom text editor for this template-->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
+    <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
+
+    <style>
+        trix-toolbar [data-trix-button-group="file-tools"] {
+            display: none;
+        }
+    </style>
+
     <?php echo $__env->yieldPushContent('custom-styles'); ?>
 </head>
 
