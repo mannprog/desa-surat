@@ -21,6 +21,7 @@
     <!-- App CSS -->
     <link id="theme-style" rel="stylesheet" href="<?php echo e(asset('admin/css/portal.css')); ?>">
 
+    <?php echo $__env->yieldPushContent('custom-styles'); ?>
 </head>
 
 <body class="app">
@@ -94,7 +95,7 @@
         });
     </script>
 
-    <?php echo $__env->yieldPushContent('custom-script'); ?>
+    <?php echo $__env->yieldPushContent('custom-scripts'); ?>
 </body>
 
 </html>

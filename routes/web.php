@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\UserAdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,12 @@ Route::post('/register', [AuthController::class, 'prosesRegister'])->name('prose
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['admin'])->group(function () {
         Route::get('/dashboard-admin', [DashboardController::class, 'indexAdmin'])->name('admin.index');
+
+        Route::prefix('/dashboard-admin/users/')->group(function () {
+            Route::name('kelola.')->group(function(){
+                Route::resource('admin', UserAdminController::class);
+            });
+        });
     });
     
     Route::get('/dashboard-warga', [DashboardController::class, 'indexWarga'])->name('warga.index');

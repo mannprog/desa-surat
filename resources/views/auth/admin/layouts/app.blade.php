@@ -21,6 +21,7 @@
     <!-- App CSS -->
     <link id="theme-style" rel="stylesheet" href="{{ asset('admin/css/portal.css') }}">
 
+    @stack('custom-styles')
 </head>
 
 <body class="app">
@@ -94,7 +95,7 @@
         });
     </script>
 
-    @stack('custom-script')
+    @stack('custom-scripts')
 </body>
 
 </html>

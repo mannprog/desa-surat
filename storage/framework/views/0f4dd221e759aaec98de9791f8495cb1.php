@@ -14,7 +14,8 @@
             <ul class="app-menu list-unstyled accordion" id="menu-accordion">
                 <li class="nav-item">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                    <a class="nav-link active" href="<?php echo e(route('admin.index')); ?>">
+                    <a class="nav-link <?php echo e(Route::is('admin.index') ? 'active' : ''); ?>"
+                        href="<?php echo e(route('admin.index')); ?>">
                         <span class="nav-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-house-door" viewBox="0 0 16 16">
@@ -65,8 +66,9 @@
                 <!--//nav-item-->
                 <li class="nav-item has-submenu">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                    <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse"
-                        data-bs-target="#submenu-2" aria-expanded="false" aria-controls="submenu-2">
+                    <a class="nav-link submenu-toggle <?php echo e(Route::is('kelola*') ? 'active' : ''); ?>" href="#"
+                        data-bs-toggle="collapse" data-bs-target="#submenu-2"
+                        aria-expanded="<?php echo e(Route::is('kelola*') ? 'true' : 'false'); ?>" aria-controls="submenu-2">
                         <span class="nav-icon">
                             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -86,9 +88,13 @@
                         <!--//submenu-arrow-->
                     </a>
                     <!--//nav-link-->
-                    <div id="submenu-2" class="collapse submenu submenu-2" data-bs-parent="#menu-accordion">
+                    <div id="submenu-2"
+                        class="collapse submenu submenu-2 collapse <?php echo e(Route::is('kelola*') ? 'show' : ''); ?>"
+                        data-bs-parent="#menu-accordion">
                         <ul class="submenu-list list-unstyled">
-                            <li class="submenu-item"><a class="submenu-link" href="#">Admin</a></li>
+                            <li class="submenu-item"><a
+                                    class="submenu-link <?php echo e(Route::is('kelola.admin*') ? 'active' : ''); ?>"
+                                    href="<?php echo e(route('kelola.admin.index')); ?>">Admin</a></li>
                             <li class="submenu-item"><a class="submenu-link" href="#">Warga</a>
                             </li>
                         </ul>
