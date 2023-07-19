@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminSuratKtpController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LandingController;
@@ -28,6 +29,16 @@ Route::post('/register', [AuthController::class, 'prosesRegister'])->name('prose
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['admin'])->group(function () {
         Route::get('/dashboard-admin', [DashboardController::class, 'indexAdmin'])->name('admin.index');
+
+        Route::prefix('/dashboard-admin/surat/')->group(function () {
+            Route::name('pengantar.')->group(function () {
+                Route::resource('ktp', AdminSuratKtpController::class)->except(['create', 'edit']);
+                Route::post('ktp/{id}/accept', [AdminSuratKtpController::class, 'acceptPermohonan'])->name('ktp.accept');
+                Route::post('ktp/{id}/reject', [AdminSuratKtpController::class, 'rejectPermohonan'])->name('ktp.reject');
+                Route::post('ktp/{id}/upload', [AdminSuratKtpController::class, 'upload'])->name('ktp.upload');
+                Route::get('ktp/download/{spktp}', [AdminSuratKtpController::class, 'download'])->name('ktp.download');
+            });
+        });
 
         Route::prefix('/dashboard-admin/users/')->group(function () {
             Route::name('kelola.')->group(function(){

@@ -30,8 +30,9 @@
                 <!--//nav-item-->
                 <li class="nav-item has-submenu">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                    <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse"
-                        data-bs-target="#submenu-1" aria-expanded="false" aria-controls="submenu-1">
+                    <a class="nav-link submenu-toggle {{ Route::is('pengantar*') ? 'active' : '' }}" href="#"
+                        data-bs-toggle="collapse" data-bs-target="#submenu-1"
+                        aria-expanded="{{ Route::is('pengantar*') ? 'true' : 'false' }}" aria-controls="submenu-1">
                         <span class="nav-icon">
                             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder"
@@ -53,9 +54,13 @@
                         <!--//submenu-arrow-->
                     </a>
                     <!--//nav-link-->
-                    <div id="submenu-1" class="collapse submenu submenu-1" data-bs-parent="#menu-accordion">
+                    <div id="submenu-1"
+                        class="collapse submenu submenu-1 collapse {{ Route::is('pengantar*') ? 'show' : '' }}"
+                        data-bs-parent="#menu-accordion">
                         <ul class="submenu-list list-unstyled">
-                            <li class="submenu-item"><a class="submenu-link" href="#">KTP</a></li>
+                            <li class="submenu-item"><a
+                                    class="submenu-link {{ Route::is('pengantar.ktp*') ? 'active' : '' }}"
+                                    href="{{ route('pengantar.ktp.index') }}">KTP</a></li>
                             <li class="submenu-item"><a class="submenu-link" href="#">KK</a>
                             </li>
                             <li class="submenu-item"><a class="submenu-link" href="#">SKTM</a></li>

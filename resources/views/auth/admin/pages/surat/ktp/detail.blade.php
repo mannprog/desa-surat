@@ -1,29 +1,88 @@
+@extends('auth.admin.layouts.app', ['title' => 'Detail Permohonan'])
 
-
-<?php $__env->startSection('content'); ?>
+@section('content')
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
             <div class="row justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title">Detail - <?php echo e($warga->name); ?></h1>
+                    <h1 class="app-page-title">Detail Permohonan - {{ $data->user->name }}</h1>
                 </div>
                 <div class="col-auto">
-                    <a href="<?php echo e(route('kelola.warga.index')); ?>" class="btn btn-sm btn-secondary shadow-sm">
+                    <a href="{{ route('pengantar.ktp.index') }}" class="btn btn-sm btn-secondary shadow">
                         Kembali</a>
                 </div>
             </div>
 
             <div class="app-card app-card-chart h-100 shadow-sm">
+                @if ($data->status === 'belumditentukan')
+                    <div class="app-card-header p-3">
+                        <a href="#" class="btn btn-sm btn-primary shadow" data-toggle="modal"
+                            data-target="#accModal">Setuju</a>
+                        <a href="#" class="btn btn-sm btn-danger shadow" data-toggle="modal"
+                            data-target="#rejModal">Tolak</a>
+
+                        @include('auth.admin.pages.surat.ktp.component.accOrRej')
+                    </div>
+                @elseif ($data->status === 'proses')
+                    <div class="app-card-header p-3">
+                        <a href="#" class="btn btn-sm btn-success shadow" data-toggle="modal"
+                            data-target="#uploadModal">Upload
+                            Surat</a>
+                        @include('auth.admin.pages.surat.ktp.component.upload')
+                    </div>
+                @endif
                 <div class="app-card-body p-3 p-lg-4">
                     <div class="row g-3 align-items-center">
                         <div class="col-12 col-lg-3 text-center mb-3 mb-lg-0">
-                            <img class="img-fluid" src="<?php echo e(asset('admin/images/profiles/' . $warga->foto)); ?>"
+                            <img class="img-fluid" src="{{ asset('admin/images/profiles/' . $data->user->foto) }}"
                                 style="height: 150px">
                         </div>
-                        <!--//col-->
                         <div class="col-12 col-lg-9 text-start">
-                            <div class="border-bottom">
-                                <h3 class="mb-3 fw-bold"><?php echo e($warga->name); ?></h3>
+                            <h5 class="fw-bold">Data Permohonan</h5>
+                            <div class="container">
+                                <div class="row align-items-center">
+                                    <div class="col-5 col-lg-3">
+                                        <p>Tanggal Permohonan</p>
+                                    </div>
+                                    <div class="col-1 col-lg-1 text-center">
+                                        <p>:</p>
+                                    </div>
+                                    <div class="col-6 col-lg-8">
+                                        <p>{{ \Carbon\Carbon::parse($data->tanggal_request)->format('d M Y H:i') }}</p>
+                                    </div>
+                                </div>
+                                <div class="row align-items-center">
+                                    <div class="col-5 col-lg-3">
+                                        <p>Status Permohonan</p>
+                                    </div>
+                                    <div class="col-1 col-lg-1 text-center">
+                                        <p>:</p>
+                                    </div>
+                                    <div class="col-6 col-lg-8">
+                                        <p>
+                                            @if ($data->status === 'selesai')
+                                                Surat Pengantar Telah Selesai Dibuat
+                                            @elseif ($data->status === 'tolak')
+                                                Permohonan Ditolak
+                                            @elseif ($data->status === 'proses')
+                                                Surat Pengantar Sedang Diproses
+                                            @else
+                                                Belum Ditentukan
+                                            @endif
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row align-items-center">
+                                    <div class="col-5 col-lg-3">
+                                        <p>File Kartu Keluarga</p>
+                                    </div>
+                                    <div class="col-1 col-lg-1 text-center">
+                                        <p>:</p>
+                                    </div>
+                                    <div class="col-6 col-lg-8">
+                                        <img src="{{ asset('file/permohonan/ktp/' . $data->file_kk) }}" class="img-fluid">
+                                    </div>
+                                </div>
                             </div>
                             <div class="mt-3">
                                 <h5 class="fw-bold">Data Pribadi</h5>
@@ -36,7 +95,7 @@
                                             <p>:</p>
                                         </div>
                                         <div class="col-6 col-lg-8">
-                                            <p><?php echo e($warga->wargaDetail->no_kk); ?></p>
+                                            <p>{{ $data->user->wargaDetail->no_kk }}</p>
                                         </div>
                                     </div>
                                     <div class="row align-items-center">
@@ -47,7 +106,7 @@
                                             <p>:</p>
                                         </div>
                                         <div class="col-6 col-lg-8">
-                                            <p><?php echo e($warga->wargaDetail->nik); ?></p>
+                                            <p>{{ $data->user->wargaDetail->nik }}</p>
                                         </div>
                                     </div>
                                     <div class="row align-items-center">
@@ -59,15 +118,14 @@
                                         </div>
                                         <div class="col-6 col-lg-8">
                                             <p>
-                                                <?php if($warga->wargaDetail->tempat_lahir): ?>
-                                                    <?php echo e($warga->wargaDetail->tempat_lahir); ?>,
-                                                <?php else: ?>
+                                                @if ($data->user->wargaDetail->tempat_lahir)
+                                                    {{ $data->user->wargaDetail->tempat_lahir }},
+                                                @else
                                                     -
-                                                <?php endif; ?>
-                                                <?php if($warga->wargaDetail->tanggal_lahir): ?>
-                                                    <?php echo e(\Carbon\Carbon::parse($warga->wargaDetail->tanggal_lahir)->format('d M Y')); ?>
-
-                                                <?php endif; ?>
+                                                @endif
+                                                @if ($data->user->wargaDetail->tanggal_lahir)
+                                                    {{ \Carbon\Carbon::parse($data->user->wargaDetail->tanggal_lahir)->format('d M Y') }}
+                                                @endif
                                             </p>
                                         </div>
                                     </div>
@@ -80,11 +138,11 @@
                                         </div>
                                         <div class="col-6 col-lg-8">
                                             <p>
-                                                <?php if($warga->wargaDetail->jenis_kelamin === 'l'): ?>
+                                                @if ($data->user->wargaDetail->jenis_kelamin === 'l')
                                                     Laki-laki
-                                                <?php else: ?>
+                                                @else
                                                     Perempuan
-                                                <?php endif; ?>
+                                                @endif
                                             </p>
                                         </div>
                                     </div>
@@ -97,17 +155,17 @@
                                         </div>
                                         <div class="col-6 col-lg-8">
                                             <p>
-                                                <?php if($warga->wargaDetail->gol_darah === 'a'): ?>
+                                                @if ($data->user->wargaDetail->gol_darah === 'a')
                                                     A
-                                                <?php elseif($warga->wargaDetail->gol_darah === 'b'): ?>
+                                                @elseif ($data->user->wargaDetail->gol_darah === 'b')
                                                     B
-                                                <?php elseif($warga->wargaDetail->gol_darah === 'ab'): ?>
+                                                @elseif ($data->user->wargaDetail->gol_darah === 'ab')
                                                     AB
-                                                <?php elseif($warga->wargaDetail->gol_darah === 'o'): ?>
+                                                @elseif ($data->user->wargaDetail->gol_darah === 'o')
                                                     O
-                                                <?php else: ?>
+                                                @else
                                                     -
-                                                <?php endif; ?>
+                                                @endif
                                             </p>
                                         </div>
                                     </div>
@@ -120,12 +178,11 @@
                                         </div>
                                         <div class="col-6 col-lg-8">
                                             <p>
-                                                <?php if($warga->wargaDetail->alamat): ?>
-                                                    <?php echo $warga->wargaDetail->alamat; ?>
-
-                                                <?php else: ?>
+                                                @if ($data->user->wargaDetail->alamat)
+                                                    {!! $data->user->wargaDetail->alamat !!}
+                                                @else
                                                     -
-                                                <?php endif; ?>
+                                                @endif
                                             </p>
                                         </div>
                                     </div>
@@ -138,19 +195,19 @@
                                         </div>
                                         <div class="col-6 col-lg-8">
                                             <p>
-                                                <?php if($warga->wargaDetail->agama === 'islam'): ?>
+                                                @if ($data->user->wargaDetail->agama === 'islam')
                                                     Islam
-                                                <?php elseif($warga->wargaDetail->agama === 'katolik'): ?>
+                                                @elseif ($data->user->wargaDetail->agama === 'katolik')
                                                     Kristen Katolik
-                                                <?php elseif($warga->wargaDetail->agama === 'protestan'): ?>
+                                                @elseif ($data->user->wargaDetail->agama === 'protestan')
                                                     Kristen Protestan
-                                                <?php elseif($warga->wargaDetail->agama === 'hindu'): ?>
+                                                @elseif ($data->user->wargaDetail->agama === 'hindu')
                                                     Hindu
-                                                <?php elseif($warga->wargaDetail->agama === 'buddha'): ?>
+                                                @elseif ($data->user->wargaDetail->agama === 'buddha')
                                                     Buddha
-                                                <?php else: ?>
+                                                @else
                                                     Khonghucu
-                                                <?php endif; ?>
+                                                @endif
                                             </p>
                                         </div>
                                     </div>
@@ -163,15 +220,15 @@
                                         </div>
                                         <div class="col-6 col-lg-8">
                                             <p>
-                                                <?php if($warga->wargaDetail->status === 'belumkawin'): ?>
+                                                @if ($data->user->wargaDetail->status === 'belumkawin')
                                                     Belum Kawin
-                                                <?php elseif($warga->wargaDetail->status === 'kawin'): ?>
+                                                @elseif ($data->user->wargaDetail->status === 'kawin')
                                                     Kawin
-                                                <?php elseif($warga->wargaDetail->status === 'ceraihidup'): ?>
+                                                @elseif ($data->user->wargaDetail->status === 'ceraihidup')
                                                     Cerai Hidup
-                                                <?php else: ?>
+                                                @else
                                                     Cerai Mati
-                                                <?php endif; ?>
+                                                @endif
                                             </p>
                                         </div>
                                     </div>
@@ -184,14 +241,13 @@
                                         </div>
                                         <div class="col-6 col-lg-8">
                                             <p>
-                                                <?php if($warga->wargaDetail->pekerjaan === 'belumbekerja'): ?>
+                                                @if ($data->user->wargaDetail->pekerjaan === 'belumbekerja')
                                                     Belum Bekerja
-                                                <?php elseif($warga->wargaDetail->pekerjaan): ?>
-                                                    <?php echo e($warga->wargaDetail->pekerjaan); ?>
-
-                                                <?php else: ?>
+                                                @elseif ($data->user->wargaDetail->pekerjaan)
+                                                    {{ $data->user->wargaDetail->pekerjaan }}
+                                                @else
                                                     -
-                                                <?php endif; ?>
+                                                @endif
                                             </p>
                                         </div>
                                     </div>
@@ -204,12 +260,11 @@
                                         </div>
                                         <div class="col-6 col-lg-8">
                                             <p>
-                                                <?php if($warga->wargaDetail->no_hp): ?>
-                                                    <?php echo e($warga->wargaDetail->no_hp); ?>
-
-                                                <?php else: ?>
+                                                @if ($data->user->wargaDetail->no_hp)
+                                                    {{ $data->user->wargaDetail->no_hp }}
+                                                @else
                                                     -
-                                                <?php endif; ?>
+                                                @endif
                                             </p>
                                         </div>
                                     </div>
@@ -221,81 +276,40 @@
                                             <p>:</p>
                                         </div>
                                         <div class="col-6 col-lg-8">
-                                            <p><?php echo e($warga->email); ?></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-1">
-                                <h5 class="fw-bold">Data Keluarga</h5>
-                                <div class="container">
-                                    <div class="row align-items-center">
-                                        <div class="col-5 col-lg-3">
-                                            <p>Nama Ayah/Ibu</p>
-                                        </div>
-                                        <div class="col-1 col-lg-1 text-center">
-                                            <p>:</p>
-                                        </div>
-                                        <div class="col-6 col-lg-8">
-                                            <p>
-                                                <?php if($warga->wargaDetail->ayah): ?>
-                                                    <?php echo e($warga->wargaDetail->ayah); ?> /
-                                                <?php else: ?>
-                                                    -
-                                                <?php endif; ?>
-                                                <?php if($warga->wargaDetail->ibu): ?>
-                                                    <?php echo e($warga->wargaDetail->ibu); ?>
-
-                                                <?php endif; ?>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="row align-items-center">
-                                        <div class="col-5 col-lg-3">
-                                            <p>Nama Pasangan</p>
-                                        </div>
-                                        <div class="col-1 col-lg-1 text-center">
-                                            <p>:</p>
-                                        </div>
-                                        <div class="col-6 col-lg-8">
-                                            <p>
-                                                <?php if($warga->wargaDetail->pasangan): ?>
-                                                    <?php echo e($warga->wargaDetail->pasangan); ?>
-
-                                                <?php else: ?>
-                                                    -
-                                                <?php endif; ?>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="row align-items-center">
-                                        <div class="col-5 col-lg-3">
-                                            <p>Nama Anak</p>
-                                        </div>
-                                        <div class="col-1 col-lg-1 text-center">
-                                            <p>:</p>
-                                        </div>
-                                        <div class="col-6 col-lg-8">
-                                            <p>
-                                                <?php if($warga->wargaDetail->anak): ?>
-                                                    <?php echo $warga->wargaDetail->anak; ?>
-
-                                                <?php else: ?>
-                                                    -
-                                                <?php endif; ?>
-                                            </p>
+                                            <p>{{ $data->email }}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!--//col-->
                     </div>
-                    <!--//row-->
                 </div>
             </div>
         </div>
     </div>
-<?php $__env->stopSection(); ?>
+@endsection
 
-<?php echo $__env->make('auth.admin.layouts.app', ['title' => 'Detail User'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\desa-surat\resources\views/auth/admin/pages/users/warga/detail.blade.php ENDPATH**/ ?>
+@push('custom-scripts')
+    <script src="{{ asset('library/http_cdn.datatables.net_1.13.4_js_jquery.dataTables.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            var successMessage = '{{ session('success') }}';
+            var errorMessage = '{{ session('error') }}';
+
+            if (successMessage) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: successMessage,
+                });
+            } else if (errorMessage) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: errorMessage,
+                });
+            }
+        });
+    </script>
+@endpush

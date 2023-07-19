@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(WargaDetail::class);
     }
+
+    public function suratKtp()
+    {
+        return $this->hasMany(SuratKtp::class);
+    }
 }

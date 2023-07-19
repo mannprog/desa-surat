@@ -1,11 +1,11 @@
+@extends('auth.admin.layouts.app', ['title' => 'Kelola Surat Pengantar KTP'])
 
-
-<?php $__env->startSection('content'); ?>
+@section('content')
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
             <div class="row justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title">Kelola Warga</h1>
+                    <h1 class="app-page-title">Kelola Surat Pengantar KTP</h1>
                 </div>
                 <div class="col-auto">
                     <button id="createData" class="btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm"></i>
@@ -16,38 +16,36 @@
             <div class="app-card app-card-chart h-100 shadow-sm">
                 <div class="app-card-body p-3 p-lg-4">
                     <div class="table-responsive">
-                        <?php echo e($dataTable->table(['class' => 'table align-items-center display responsive nowrap'])); ?>
-
+                        {{ $dataTable->table(['class' => 'table align-items-center display responsive nowrap']) }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <?php echo $__env->make('auth.admin.pages.users.warga.component.add-modal', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-<?php $__env->stopSection(); ?>
+    @include('auth.admin.pages.surat.ktp.component.add-modal')
+@endsection
 
-<?php $__env->startPush('custom-styles'); ?>
+@push('custom-styles')
     <!-- DataTables -->
-    <link rel="stylesheet" href="<?php echo e(asset('library/http_cdn.datatables.net_1.13.4_css_dataTables.bootstrap5.css')); ?>">
+    <link rel="stylesheet" href="{{ asset('library/http_cdn.datatables.net_1.13.4_css_dataTables.bootstrap5.css') }}">
     <link rel="stylesheet"
-        href="<?php echo e(asset('library/http_cdn.datatables.net_responsive_2.4.1_css_responsive.bootstrap5.css')); ?>">
-    <link rel="stylesheet" href="<?php echo e(asset('library/http_cdnjs.cloudflare.com_ajax_libs_toastr.js_latest_toastr.css')); ?>">
-<?php $__env->stopPush(); ?>
+        href="{{ asset('library/http_cdn.datatables.net_responsive_2.4.1_css_responsive.bootstrap5.css') }}">
+    <link rel="stylesheet" href="{{ asset('library/http_cdnjs.cloudflare.com_ajax_libs_toastr.js_latest_toastr.css') }}">
+@endpush
 
-<?php $__env->startPush('custom-scripts'); ?>
+@push('custom-scripts')
     <!-- DataTables  & Plugins -->
-    <script src="<?php echo e(asset('library/http_cdn.datatables.net_1.13.4_js_jquery.dataTables.js')); ?>"></script>
-    <script src="<?php echo e(asset('library/http_cdn.datatables.net_1.13.4_js_dataTables.bootstrap5.js')); ?>"></script>
-    <script src="<?php echo e(asset('library/http_cdn.datatables.net_responsive_2.4.1_js_dataTables.responsive.js')); ?>"></script>
-    <script src="<?php echo e(asset('library/http_cdn.datatables.net_responsive_2.4.1_js_responsive.bootstrap4.js')); ?>"></script>
+    <script src="{{ asset('library/http_cdn.datatables.net_1.13.4_js_jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('library/http_cdn.datatables.net_1.13.4_js_dataTables.bootstrap5.js') }}"></script>
+    <script src="{{ asset('library/http_cdn.datatables.net_responsive_2.4.1_js_dataTables.responsive.js') }}"></script>
+    <script src="{{ asset('library/http_cdn.datatables.net_responsive_2.4.1_js_responsive.bootstrap4.js') }}"></script>
 
-    <?php echo e($dataTable->scripts(attributes: ['type' => 'module'])); ?>
-
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
 
     <script>
         $(document).ready(function() {
-            var successMessage = '<?php echo e(session('success')); ?>';
+            var successMessage = '{{ session('success') }}';
 
             if (successMessage) {
                 Swal.fire({
@@ -64,7 +62,7 @@
                 $('#saveBtn').removeAttr('disabled');
                 $('#saveBtn').html("Simpan");
                 $('#itemForm').trigger("reset");
-                $('.modal-title').html("Tambah User");
+                $('.modal-title').html("Tambah Permohonan");
                 $('#modal-md').modal('show');
             });
 
@@ -75,14 +73,14 @@
                 var formData = new FormData($('#itemForm')[0]);
                 $.ajax({
                     data: formData,
-                    url: "<?php echo e(route('kelola.warga.store')); ?>",
+                    url: "{{ route('pengantar.ktp.store') }}",
                     contentType: false,
                     processData: false,
                     type: "POST",
                     success: function(data) {
                         $('#itemForm').trigger("reset");
                         $('#modal-md').modal('hide');
-                        $('#userwarga-table').DataTable().draw();
+                        $('#adminsuratktp-table').DataTable().draw();
                         Swal.fire({
                             icon: 'success',
                             title: 'Success',
@@ -114,13 +112,13 @@
                     $('.deleteBtn').html('...');
                     $.ajax({
                         data: formData,
-                        url: "<?php echo e(route('kelola.warga.index')); ?>" + '/' + warga_id,
+                        url: "{{ route('pengantar.ktp.index') }}" + '/' + warga_id,
                         contentType: false,
                         processData: false,
                         type: "POST",
                         success: function(data) {
                             $('#deleteDoc').trigger("reset");
-                            $('#userwarga-table').DataTable().draw();
+                            $('#adminsuratktp-table').DataTable().draw();
                             toastr.success(data.message);
                         },
                         error: function(data) {
@@ -134,6 +132,4 @@
             });
         });
     </script>
-<?php $__env->stopPush(); ?>
-
-<?php echo $__env->make('auth.admin.layouts.app', ['title' => 'Kelola Warga'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\desa-surat\resources\views/auth/admin/pages/users/warga/index.blade.php ENDPATH**/ ?>
+@endpush
