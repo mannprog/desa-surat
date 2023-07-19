@@ -82,6 +82,10 @@
     <!-- Page Specific JS -->
     <script src="<?php echo e(asset('admin/js/app.js')); ?>"></script>
 
+    <!-- SweetAlert2 -->
+    <script src="<?php echo e(asset('library/http_cdn.jsdelivr.net_npm_sweetalert2@11.js')); ?>"></script>
+    <script src="<?php echo e(asset('library/http_cdnjs.cloudflare.com_ajax_libs_toastr.js_latest_toastr.min.js')); ?>"></script>
+
     <script>
         $(document).ready(function() {
             $('a[data-toggle="modal"]').click(function() {

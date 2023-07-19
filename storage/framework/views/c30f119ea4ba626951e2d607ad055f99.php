@@ -9,7 +9,7 @@
                 </button>
             </div>
             <form id="itemForm" name="itemForm" method="post">
-                @csrf
+                <?php echo csrf_field(); ?>
                 <input type="hidden" name="admin_id" id="admin_id">
                 <div class="modal-body">
                     <div class="row mb-3">
@@ -131,7 +131,7 @@
 </div>
 <!-- /.modal -->
 
-@push('custom-scripts')
+<?php $__env->startPush('custom-scripts'); ?>
     <script>
         $('#foto').change(function(e) {
             var file = e.target.files[0];
@@ -145,4 +145,5 @@
             reader.readAsDataURL(file);
         });
     </script>
-@endpush
+<?php $__env->stopPush(); ?>
+<?php /**PATH C:\laragon\www\desa-surat\resources\views/auth/admin/pages/users/admin/component/add-modal.blade.php ENDPATH**/ ?>

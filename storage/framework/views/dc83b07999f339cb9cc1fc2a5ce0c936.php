@@ -17,8 +17,8 @@
                 <div class="app-card-body p-3 p-lg-4">
                     <div class="row g-3 align-items-center">
                         <div class="col-12 col-lg-3 text-center mb-3 mb-lg-0">
-                            <img class="profile-image rounded-circle"
-                                src="<?php echo e(asset('admin/images/profiles/' . $admin->foto)); ?>" style="height: 150px">
+                            <img class="img-fluid" src="<?php echo e(asset('admin/images/profiles/' . $admin->foto)); ?>"
+                                style="height: 150px">
                         </div>
                         <!--//col-->
                         <div class="col-12 col-lg-9 text-start">
