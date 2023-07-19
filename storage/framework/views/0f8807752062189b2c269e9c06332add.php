@@ -45,7 +45,7 @@
                                     <label for="no_hp" class="form-label">No Handphone<span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control form-control-sm" id="no_hp" name="no_hp"
-                                        required value="<?php echo e(old('no_hp', $admin->no_hp)); ?>">
+                                        required value="<?php echo e(old('no_hp', $admin->adminDetail->no_hp)); ?>">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -54,14 +54,14 @@
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control form-control-sm" id="tempat_lahir"
                                         name="tempat_lahir" required
-                                        value="<?php echo e(old('tempat_lahir', $admin->tempat_lahir)); ?>">
+                                        value="<?php echo e(old('tempat_lahir', $admin->adminDetail->tempat_lahir)); ?>">
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="tanggal_lahir" class="form-label">Tanggal Lahir<span
                                             class="text-danger">*</span></label>
                                     <input type="date" class="form-control form-control-sm" id="tanggal_lahir"
                                         name="tanggal_lahir" required
-                                        value="<?php echo e(old('tanggal_lahir', $admin->tanggal_lahir)); ?>">
+                                        value="<?php echo e(old('tanggal_lahir', $admin->adminDetail->tanggal_lahir)); ?>">
                                 </div>
                             </div>
                             <div class="row mb-3">

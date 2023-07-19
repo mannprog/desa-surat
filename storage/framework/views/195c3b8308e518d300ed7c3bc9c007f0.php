@@ -36,20 +36,89 @@
                     <div class="auth-form-container text-start mx-auto">
                         <form class="auth-form auth-signup-form" id="itemForm" name="itemForm" method="post">
                             <?php echo csrf_field(); ?>
-                            <div class="email mb-3">
-                                <label class="sr-only" for="name">Nama Lengkap</label>
-                                <input id="name" name="name" type="text" class="form-control signup-name"
-                                    placeholder="Masukkan Nama Lengkap" required="required">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="email mb-3">
+                                        <label class="sr-only" for="no_kk">No. Kartu Keluarga</label>
+                                        <input id="no_kk" name="no_kk" type="text"
+                                            class="form-control signup-name" placeholder="Masukkan Nomor KK"
+                                            required="required">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="email mb-3">
+                                        <label class="sr-only" for="nik">Nomor Induk Kependudukan</label>
+                                        <input id="nik" name="nik" type="text"
+                                            class="form-control signup-name" placeholder="Masukkan NIK"
+                                            required="required">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="email mb-3">
+                                        <label class="sr-only" for="name">Nama Lengkap</label>
+                                        <input id="name" name="name" type="text"
+                                            class="form-control signup-name" placeholder="Masukkan Nama Lengkap"
+                                            required="required">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="email mb-3">
+                                        <label for="jenis_kelamin" class="sr-only">Jenis Kelamin<span
+                                                class="text-danger">*</span></label>
+                                        <select class="form-select" aria-label="Default select example"
+                                            name="jenis_kelamin" id="jenis_kelamin">
+                                            <option selected disabled>---Pilih Jenis Kelamin---</option>
+                                            <option value="l">Laki-laki</option>
+                                            <option value="p">Perempuan</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="email mb-3">
+                                        <label for="agama" class="sr-only">Agama<span
+                                                class="text-danger">*</span></label>
+                                        <select class="form-select" aria-label="Default select example" name="agama"
+                                            id="agama">
+                                            <option selected disabled>---Pilih Agama---</option>
+                                            <option value="islam">Islam</option>
+                                            <option value="katolik">Kristen Katolik</option>
+                                            <option value="protestan">Kristen Protestan</option>
+                                            <option value="hindu">Hindu</option>
+                                            <option value="buddha">Buddha</option>
+                                            <option value="khonghucu">Khonghucu</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="email mb-3">
+                                        <label for="status" class="sr-only">Status Perkawinan<span
+                                                class="text-danger">*</span></label>
+                                        <select class="form-select" aria-label="Default select example" name="status"
+                                            id="status">
+                                            <option selected disabled>---Pilih Status Perkawinan---</option>
+                                            <option value="belumkawin">Belum Kawin</option>
+                                            <option value="kawin">Kawin</option>
+                                            <option value="ceraihidup">Cerai Hidup</option>
+                                            <option value="ceraimati">Cerai Mati</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                             <div class="email mb-3">
                                 <label class="sr-only" for="username">Username</label>
-                                <input id="username" name="username" type="text" class="form-control signup-name"
-                                    placeholder="Masukkan Username" required="required">
+                                <input id="username" name="username" type="text"
+                                    class="form-control signup-name" placeholder="Masukkan Username"
+                                    required="required">
                             </div>
                             <div class="email mb-3">
                                 <label class="sr-only" for="email">Email</label>
-                                <input id="email" name="email" type="email" class="form-control signup-email"
-                                    placeholder="Masukkan Email" required="required">
+                                <input id="email" name="email" type="email"
+                                    class="form-control signup-email" placeholder="Masukkan Email"
+                                    required="required">
                             </div>
                             <div class="password mb-3">
                                 <label class="sr-only" for="password">Password</label>
@@ -60,7 +129,7 @@
                             <div class="extra mb-3">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value=""
-                                        id="RememberPassword">
+                                        id="RememberPassword" required="required">
                                     <label class="form-check-label" for="RememberPassword">
                                         Saya menyetujui <a href="#" class="app-link">Ketentuan Layanan</a> dan
                                         <a href="#" class="app-link">Kebijakan Privasi</a> Portal Desa.

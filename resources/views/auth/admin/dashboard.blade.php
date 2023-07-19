@@ -75,7 +75,7 @@
                 <!--//col-->
             </div>
             <!--//row-->
-            <div class="row g-4 mb-4">
+            {{-- <div class="row g-4 mb-4">
                 <div class="col-12 col-lg-6">
                     <div class="app-card app-card-chart h-100 shadow-sm">
                         <div class="app-card-header p-3">
@@ -151,7 +151,7 @@
                 </div>
                 <!--//col-->
 
-            </div>
+            </div> --}}
             <!--//row-->
 
         </div>

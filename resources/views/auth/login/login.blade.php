@@ -61,7 +61,7 @@
                                             <input class="form-check-input" type="checkbox" value=""
                                                 id="RememberPassword">
                                             <label class="form-check-label" for="RememberPassword">
-                                                Remember me
+                                                Ingat Saya
                                             </label>
                                         </div>
                                     </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\WargaDetail;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Illuminate\Support\Facades\DB;
@@ -49,6 +50,11 @@ class AuthController extends Controller
             'username' => 'required|string|unique:users,username',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:4',
+            'no_kk' => 'required|max:16',
+            'nik' => 'required|max:16',
+            'jenis_kelamin' => 'required',
+            'agama' => 'required',
+            'status' => 'required',
         ]);
     
         if ($validator->fails()) {
@@ -62,11 +68,20 @@ class AuthController extends Controller
         }
     
         // If validation passes, create the user and return the JSON response
-        User::create([
+        $user = User::create([
             'name' => request('name'),
             'username' => request('username'),
             'email' => request('email'),
             'password' => password_hash(request('password'), PASSWORD_DEFAULT),
+        ]);
+
+        WargaDetail::create([
+            'user_id' => $user->id,
+            'no_kk' => request('no_kk'),
+            'nik' => request('nik'),
+            'jenis_kelamin' => request('jenis_kelamin'),
+            'agama' => request('agama'),
+            'status' => request('status'),
         ]);
     
         return response()->json([
