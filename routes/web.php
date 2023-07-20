@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminSuratKkController;
 use App\Http\Controllers\AdminSuratKtpController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
@@ -32,11 +33,20 @@ Route::middleware(['auth'])->group(function () {
 
         Route::prefix('/dashboard-admin/surat/')->group(function () {
             Route::name('pengantar.')->group(function () {
-                Route::resource('ktp', AdminSuratKtpController::class)->except(['create', 'edit']);
+
+                // SPKTP
+                Route::resource('ktp', AdminSuratKtpController::class)->except(['create', 'edit', 'update']);
                 Route::post('ktp/{id}/accept', [AdminSuratKtpController::class, 'acceptPermohonan'])->name('ktp.accept');
                 Route::post('ktp/{id}/reject', [AdminSuratKtpController::class, 'rejectPermohonan'])->name('ktp.reject');
                 Route::post('ktp/{id}/upload', [AdminSuratKtpController::class, 'upload'])->name('ktp.upload');
                 Route::get('ktp/download/{spktp}', [AdminSuratKtpController::class, 'download'])->name('ktp.download');
+
+                // SPKK
+                Route::resource('kk', AdminSuratKkController::class)->except(['create', 'edit', 'update']);
+                Route::post('kk/{id}/accept', [AdminSuratKkController::class, 'acceptPermohonan'])->name('kk.accept');
+                Route::post('kk/{id}/reject', [AdminSuratKkController::class, 'rejectPermohonan'])->name('kk.reject');
+                Route::post('kk/{id}/upload', [AdminSuratKkController::class, 'upload'])->name('kk.upload');
+                Route::get('kk/download/{spkk}', [AdminSuratKkController::class, 'download'])->name('kk.download');
             });
         });
 

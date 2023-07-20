@@ -3,27 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\SuratKtp;
+use App\Models\SuratKk;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
-use App\DataTables\AdminSuratKtpDataTable;
+use Illuminate\Support\Facades\Response;
+use App\DataTables\AdminSuratKkDataTable;
 
-class AdminSuratKtpController extends Controller
+class AdminSuratKkController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(AdminSuratKtpDataTable $dataTable)
+    public function index(AdminSuratKkDataTable $dataTable)
     {
         $data = User::all();
         $filteredUsers = $data->where('is_admin', 1);
         $user = $filteredUsers->values()->all();
 
-        return $dataTable->render('auth.admin.pages.surat.ktp.index', compact('user'));
+        return $dataTable->render('auth.admin.pages.surat.kk.index', compact('user'));
     }
 
     /**
@@ -36,7 +35,8 @@ class AdminSuratKtpController extends Controller
 
                 request()->validate([
                     'user_id' => 'required',
-                    'file_kk' => 'required|mimes:png,jpg,jpeg,svg|max:1048',
+                    'kk_lama' => 'required|mimes:png,jpg,jpeg,svg|max:1048',
+                    'file_pendukung' => 'required|mimes:png,jpg,jpeg,svg|max:1048',
                 ]);
 
                 $userData = [
@@ -44,14 +44,21 @@ class AdminSuratKtpController extends Controller
                     'tanggal_request' => now(),
                 ];
     
-                if (request()->hasFile('file_kk')) {
-                    $file_kk = request()->file('file_kk');
-                    $filename = $file_kk->getClientOriginalName();
-                    $file_kk->move(public_path('file/permohonan/ktp'), $filename);
-                    $userData['file_kk'] = $filename;
+                if (request()->hasFile('kk_lama')) {
+                    $kk_lama = request()->file('kk_lama');
+                    $filename = $kk_lama->getClientOriginalName();
+                    $kk_lama->move(public_path('file/permohonan/kk'), $filename);
+                    $userData['kk_lama'] = $filename;
                 }
     
-                $user = SuratKtp::create($userData);
+                if (request()->hasFile('file_pendukung')) {
+                    $file_pendukung = request()->file('file_pendukung');
+                    $filename = $file_pendukung->getClientOriginalName();
+                    $file_pendukung->move(public_path('file/permohonan/kk'), $filename);
+                    $userData['file_pendukung'] = $filename;
+                }
+    
+                $user = SuratKk::create($userData);
             });
         } catch (InvalidArgumentException $e) {
             return response()->json([
@@ -60,7 +67,7 @@ class AdminSuratKtpController extends Controller
         }
 
         return response()->json([
-            'message' => 'Data pemohon Surat Pengantar KTP berhasil ditambahkan',
+            'message' => 'Data pemohon Surat Pengantar Kartu Keluarga berhasil ditambahkan',
         ]);
     }
 
@@ -69,16 +76,16 @@ class AdminSuratKtpController extends Controller
      */
     public function show(string $id)
     {
-        $data = SuratKtp::with(['user'])->find($id);
+        $data = SuratKk::with(['user'])->find($id);
 
-        return view('auth.admin.pages.surat.ktp.detail', compact('data'));
+        return view('auth.admin.pages.surat.kk.detail', compact('data'));
     }
 
     public function rejectPermohonan($id)
     {
         try {
             DB::transaction(function () use ($id) {
-                $permohonan = SuratKtp::findOrFail($id);
+                $permohonan = SuratKk::findOrFail($id);
                 $permohonan->status = 'tolak';
                 $permohonan->save();
             });
@@ -95,7 +102,7 @@ class AdminSuratKtpController extends Controller
         try {
             DB::transaction(function () use ($id) {
 
-                $permohonan = SuratKtp::findOrFail($id);
+                $permohonan = SuratKk::findOrFail($id);
                 $permohonan->status = 'proses';
                 $permohonan->save();
             });
@@ -112,15 +119,15 @@ class AdminSuratKtpController extends Controller
         try {
             DB::transaction(function () use ($id) {
                 request()->validate([
-                    'spktp' => 'required|mimes:png,jpg,jpeg,pdf|max:2096',
+                    'spkk' => 'required|mimes:png,jpg,jpeg,pdf|max:2096',
                 ]);
 
-                $permohonan = SuratKtp::findOrFail($id);
-                if (request()->hasFile('spktp')) {
-                    $spktp = request()->file('spktp');
-                    $filename = $spktp->getClientOriginalName();
-                    $spktp->move(public_path('file/surat/ktp'), $filename);
-                    $permohonan->spktp = $filename;
+                $permohonan = SuratKk::findOrFail($id);
+                if (request()->hasFile('spkk')) {
+                    $spkk = request()->file('spkk');
+                    $filename = $spkk->getClientOriginalName();
+                    $spkk->move(public_path('file/surat/kk'), $filename);
+                    $permohonan->spkk = $filename;
                 }
                 $permohonan->status = 'selesai';
                 $permohonan->save();
@@ -130,17 +137,17 @@ class AdminSuratKtpController extends Controller
             return redirect()->back()->with('error', $message);
         }
 
-        return redirect()->back()->with('success', 'Surat Pengantar KTP berhasil diupload');
+        return redirect()->back()->with('success', 'Surat Pengantar Kartu Keluarga berhasil diupload');
     }
 
-    public function download($spktp)
+    public function download($spkk)
     {
-        $data = SuratKtp::where('spktp', $spktp)->firstOrFail();
-        $filePath = public_path('file/surat/ktp/' . $data->spktp);
+        $data = SuratKk::where('spkk', $spkk)->firstOrFail();
+        $filePath = public_path('file/surat/kk/' . $data->spkk);
 
         $mime = Storage::mimeType($filePath);
 
-        $originalFileName = $data->spktp;
+        $originalFileName = $data->spkk;
 
         return Response::download($filePath, $originalFileName, ['Content-Type' => $mime]);
     }
@@ -151,7 +158,7 @@ class AdminSuratKtpController extends Controller
     public function destroy(string $id)
     {
         try {
-            $spktp = SuratKtp::findOrFail($id);
+            $spktp = SuratKk::findOrFail($id);
             $spktp->delete();
         } catch (InvalidArgumentException $e) {
             return response()->json([
@@ -159,7 +166,7 @@ class AdminSuratKtpController extends Controller
             ], 400);
         }
         return response()->json([
-            'message' => 'Pemohon Surat Pengantar KTP berhasil dihapus',
+            'message' => 'Pemohon Surat Pengantar Kartu Keluarga berhasil dihapus',
         ]);
     }
 }

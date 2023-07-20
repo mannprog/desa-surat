@@ -61,7 +61,9 @@
                             <li class="submenu-item"><a
                                     class="submenu-link {{ Route::is('pengantar.ktp*') ? 'active' : '' }}"
                                     href="{{ route('pengantar.ktp.index') }}">KTP</a></li>
-                            <li class="submenu-item"><a class="submenu-link" href="#">KK</a>
+                            <li class="submenu-item"><a
+                                    class="submenu-link {{ Route::is('pengantar.kk*') ? 'active' : '' }}"
+                                    href="{{ route('pengantar.kk.index') }}">KK</a>
                             </li>
                             <li class="submenu-item"><a class="submenu-link" href="#">SKTM</a></li>
                             <li class="submenu-item"><a class="submenu-link" href="#">SKCK</a></li>

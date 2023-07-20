@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(SuratKtp::class);
     }
+
+    public function suratKk()
+    {
+        return $this->hasMany(SuratKk::class);
+    }
 }
