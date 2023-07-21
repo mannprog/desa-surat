@@ -10,7 +10,7 @@
             </div>
             <form id="itemForm" name="itemForm" method="post">
                 @csrf
-                <input type="hidden" name="suratsktm_id" id="suratsktm_id">
+                <input type="hidden" name="suratskck_id" id="suratskck_id">
                 <div class="modal-body">
                     <div class="col-lg-12 mb-3">
                         <label for="user_id" class="form-label">Nama Pemohon<span class="text-danger">*</span></label>

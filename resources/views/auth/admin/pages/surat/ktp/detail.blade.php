@@ -276,7 +276,7 @@
                                             <p>:</p>
                                         </div>
                                         <div class="col-6 col-lg-8">
-                                            <p>{{ $data->email }}</p>
+                                            <p>{{ $data->user->email }}</p>
                                         </div>
                                     </div>
                                 </div>

@@ -8,7 +8,7 @@
                     <h1 class="app-page-title">Detail Permohonan - {{ $data->user->name }}</h1>
                 </div>
                 <div class="col-auto">
-                    <a href="{{ route('pengantar.sktm.index') }}" class="btn btn-sm btn-secondary shadow">
+                    <a href="{{ route('pengantar.skck.index') }}" class="btn btn-sm btn-secondary shadow">
                         Kembali</a>
                 </div>
             </div>
@@ -21,14 +21,14 @@
                         <a href="#" class="btn btn-sm btn-danger shadow" data-toggle="modal"
                             data-target="#rejModal">Tolak</a>
 
-                        @include('auth.admin.pages.surat.sktm.component.accOrRej')
+                        @include('auth.admin.pages.surat.skck.component.accOrRej')
                     </div>
                 @elseif ($data->status === 'proses')
                     <div class="app-card-header p-3">
                         <a href="#" class="btn btn-sm btn-success shadow" data-toggle="modal"
                             data-target="#uploadModal">Upload
                             Surat</a>
-                        @include('auth.admin.pages.surat.sktm.component.upload')
+                        @include('auth.admin.pages.surat.skck.component.upload')
                     </div>
                 @endif
                 <div class="app-card-body p-3 p-lg-4">
@@ -80,7 +80,7 @@
                                         <p>:</p>
                                     </div>
                                     <div class="col-6 col-lg-8">
-                                        <img src="{{ asset('file/permohonan/sktm/' . $data->ktp) }}" class="img-fluid py-2">
+                                        <img src="{{ asset('file/permohonan/skck/' . $data->ktp) }}" class="img-fluid py-2">
                                     </div>
                                 </div>
                                 <div class="row align-items-center">
@@ -91,7 +91,7 @@
                                         <p>:</p>
                                     </div>
                                     <div class="col-6 col-lg-8">
-                                        <img src="{{ asset('file/permohonan/sktm/' . $data->kk) }}" class="img-fluid py-2">
+                                        <img src="{{ asset('file/permohonan/skck/' . $data->kk) }}" class="img-fluid py-2">
                                     </div>
                                 </div>
                             </div>
