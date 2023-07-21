@@ -119,10 +119,12 @@ class AdminSuratKkController extends Controller
         try {
             DB::transaction(function () use ($id) {
                 request()->validate([
+                    'tanggal_dibuat' => 'required',
                     'spkk' => 'required|mimes:png,jpg,jpeg,pdf|max:2096',
                 ]);
 
                 $permohonan = SuratKk::findOrFail($id);
+                $permohonan->tanggal_dibuat = request('tanggal_dibuat');
                 if (request()->hasFile('spkk')) {
                     $spkk = request()->file('spkk');
                     $filename = $spkk->getClientOriginalName();

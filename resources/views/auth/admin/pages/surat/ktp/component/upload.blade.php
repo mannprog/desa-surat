@@ -12,6 +12,10 @@
                 @csrf
                 <input type="hidden" name="ktp_id" id="ktp_id" value="{{ $data->id }}">
                 <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="tanggal_dibuat" class="form-label">Tanggal dibuat</label>
+                        <input type="date" class="form-control" id="tanggal_dibuat" name="tanggal_dibuat">
+                    </div>
                     <label for="spktp" class="form-label">Upload Surat<span class="text-danger">*</span></label>
                     <input class="form-control" type="file" id="spktp" name="spktp"
                         aria-describedby="spktpHelp" required>

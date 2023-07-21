@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('surat_ktps', function (Blueprint $table) {
+        Schema::create('surat_sktms', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
             $table->timestamp('tanggal_request');
-            $table->string('file_kk');
+            $table->string('ktp');
+            $table->string('kk');
             $table->enum('status', ['selesai', 'tolak', 'proses', 'belumditentukan'])->default('belumditentukan');
             $table->date('tanggal_dibuat')->nullable();
-            $table->string('spktp')->nullable();
+            $table->string('spsktm')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('surat_ktps');
+        Schema::dropIfExists('surat_sktms');
     }
 };

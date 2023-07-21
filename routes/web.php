@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminSuratKkController;
 use App\Http\Controllers\AdminSuratKtpController;
+use App\Http\Controllers\AdminSuratSktmController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LandingController;
@@ -47,6 +48,13 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('kk/{id}/reject', [AdminSuratKkController::class, 'rejectPermohonan'])->name('kk.reject');
                 Route::post('kk/{id}/upload', [AdminSuratKkController::class, 'upload'])->name('kk.upload');
                 Route::get('kk/download/{spkk}', [AdminSuratKkController::class, 'download'])->name('kk.download');
+
+                // SPSKTM
+                Route::resource('sktm', AdminSuratSktmController::class)->except(['create', 'edit', 'update']);
+                Route::post('sktm/{id}/accept', [AdminSuratSktmController::class, 'acceptPermohonan'])->name('sktm.accept');
+                Route::post('sktm/{id}/reject', [AdminSuratSktmController::class, 'rejectPermohonan'])->name('sktm.reject');
+                Route::post('sktm/{id}/upload', [AdminSuratSktmController::class, 'upload'])->name('sktm.upload');
+                Route::get('sktm/download/{spsktm}', [AdminSuratSktmController::class, 'download'])->name('sktm.download');
             });
         });
 

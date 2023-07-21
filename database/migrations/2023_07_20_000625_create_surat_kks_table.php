@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('kk_lama');
             $table->string('file_pendukung');
             $table->enum('status', ['selesai', 'tolak', 'proses', 'belumditentukan'])->default('belumditentukan');
+            $table->date('tanggal_dibuat')->nullable();
             $table->string('spkk')->nullable();
             $table->timestamps();
         });
