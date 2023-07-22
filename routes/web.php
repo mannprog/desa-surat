@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminSuratSktmController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\UserWargaController;
 use Illuminate\Support\Facades\Route;
@@ -63,6 +64,16 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('skck/{id}/reject', [AdminSuratSkckController::class, 'rejectPermohonan'])->name('skck.reject');
                 Route::post('skck/{id}/upload', [AdminSuratSkckController::class, 'upload'])->name('skck.upload');
                 Route::get('skck/download/{spskck}', [AdminSuratSkckController::class, 'download'])->name('skck.download');
+            });
+        });
+
+        Route::prefix('/dashboard-admin/laporan/')->group(function () {
+            Route::name('laporan.')->group(function () {
+                // Data
+                Route::get('ktp', [LaporanController::class, 'dataSuratKtp'])->name('ktp.index');
+                Route::get('kk', [LaporanController::class, 'dataSuratKk'])->name('kk.index');
+                Route::get('sktm', [LaporanController::class, 'dataSuratSktm'])->name('sktm.index');
+                Route::get('skck', [LaporanController::class, 'dataSuratSkck'])->name('skck.index');
             });
         });
 

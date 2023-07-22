@@ -78,8 +78,9 @@
                 </li>
                 <li class="nav-item has-submenu">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                    <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse"
-                        data-bs-target="#submenu-3" aria-expanded="false" aria-controls="submenu-3">
+                    <a class="nav-link submenu-toggle {{ Route::is('laporan*') ? 'active' : '' }}" href="#"
+                        data-bs-toggle="collapse" data-bs-target="#submenu-2"
+                        aria-expanded="{{ Route::is('laporan*') ? 'true' : 'false' }}" aria-controls="submenu-2">
                         <span class="nav-icon">
                             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder"
@@ -101,13 +102,26 @@
                         <!--//submenu-arrow-->
                     </a>
                     <!--//nav-link-->
-                    <div id="submenu-3" class="collapse submenu submenu-3" data-bs-parent="#menu-accordion">
+                    <div id="submenu-2"
+                        class="collapse submenu submenu-2 collapse {{ Route::is('laporan*') ? 'show' : '' }}"
+                        data-bs-parent="#menu-accordion">
                         <ul class="submenu-list list-unstyled">
-                            <li class="submenu-item"><a class="submenu-link" href="#">KTP</a></li>
-                            <li class="submenu-item"><a class="submenu-link" href="#">KK</a>
+                            <li class="submenu-item"><a
+                                    class="submenu-link {{ Route::is('laporan.ktp*') ? 'active' : '' }}"
+                                    href="{{ route('laporan.ktp.index') }}">KTP</a>
                             </li>
-                            <li class="submenu-item"><a class="submenu-link" href="#">SKTM</a></li>
-                            <li class="submenu-item"><a class="submenu-link" href="#">SKCK</a></li>
+                            <li class="submenu-item"><a
+                                    class="submenu-link {{ Route::is('laporan.kk*') ? 'active' : '' }}"
+                                    href="{{ route('laporan.kk.index') }}">KK</a>
+                            </li>
+                            <li class="submenu-item"><a
+                                    class="submenu-link {{ Route::is('laporan.sktm*') ? 'active' : '' }}"
+                                    href="{{ route('laporan.sktm.index') }}">SKTM</a>
+                            </li>
+                            <li class="submenu-item"><a
+                                    class="submenu-link {{ Route::is('laporan.skck*') ? 'active' : '' }}"
+                                    href="{{ route('laporan.skck.index') }}">SKCK</a>
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -115,8 +129,8 @@
                 <li class="nav-item has-submenu">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                     <a class="nav-link submenu-toggle {{ Route::is('kelola*') ? 'active' : '' }}" href="#"
-                        data-bs-toggle="collapse" data-bs-target="#submenu-2"
-                        aria-expanded="{{ Route::is('kelola*') ? 'true' : 'false' }}" aria-controls="submenu-2">
+                        data-bs-toggle="collapse" data-bs-target="#submenu-3"
+                        aria-expanded="{{ Route::is('kelola*') ? 'true' : 'false' }}" aria-controls="submenu-3">
                         <span class="nav-icon">
                             <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -136,8 +150,8 @@
                         <!--//submenu-arrow-->
                     </a>
                     <!--//nav-link-->
-                    <div id="submenu-2"
-                        class="collapse submenu submenu-2 collapse {{ Route::is('kelola*') ? 'show' : '' }}"
+                    <div id="submenu-3"
+                        class="collapse submenu submenu-3 collapse {{ Route::is('kelola*') ? 'show' : '' }}"
                         data-bs-parent="#menu-accordion">
                         <ul class="submenu-list list-unstyled">
                             <li class="submenu-item"><a
