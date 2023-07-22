@@ -1,15 +1,16 @@
-@extends('auth.admin.layouts.app', ['title' => 'Detail User'])
+@extends('auth.admin.layouts.app', ['title' => 'Profil Saya'])
 
 @section('content')
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
             <div class="row justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title">Detail - {{ $admin->name }}</h1>
+                    <h1 class="app-page-title">Profil Saya</h1>
                 </div>
                 <div class="col-auto">
-                    <a href="{{ route('kelola.admin.index') }}" class="btn btn-sm btn-secondary shadow-sm">
-                        Kembali</a>
+                    <a href="{{ route('edit.admin.profil', $admin->id) }}" class="btn btn-sm btn-warning shadow-sm"><i
+                            class="fas fa-pencil-alt me-2"></i>
+                        Ubah Profil</a>
                 </div>
             </div>
 
@@ -242,3 +243,19 @@
         </div>
     </div>
 @endsection
+
+@push('custom-scripts')
+    <script>
+        $(document).ready(function() {
+            var successMessage = '{{ session('success') }}';
+
+            if (successMessage) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: successMessage,
+                });
+            }
+        });
+    </script>
+@endpush

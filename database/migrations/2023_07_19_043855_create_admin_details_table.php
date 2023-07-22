@@ -24,10 +24,6 @@ return new class extends Migration
             $table->date('tmt_sk');
             $table->text('no_sk');
             $table->enum('status', ['belumkawin', 'kawin', 'ceraihidup', 'ceraimati']);
-            $table->string('ayah')->nullable();
-            $table->string('ibu')->nullable();
-            $table->string('pasangan')->nullable();
-            $table->text('anak')->nullable();
             $table->text('alamat')->nullable();
             $table->string('no_hp')->nullable();
             $table->timestamps();

@@ -124,10 +124,6 @@ class UserAdminController extends Controller
                     'tmt_sk' => 'required',
                     'no_sk' => 'required',
                     'status' => 'required',
-                    'ayah' => 'required',
-                    'ibu' => 'required',
-                    'pasangan' => 'required',
-                    'anak' => 'required',
                     'alamat' => 'required',
                     'no_hp' => 'required',
                 ];
@@ -160,10 +156,6 @@ class UserAdminController extends Controller
                 $adminDetail->no_sk = request('no_sk');
                 $adminDetail->alamat = request('alamat');
                 $adminDetail->status = request('status');
-                $adminDetail->ayah = request('ayah');
-                $adminDetail->ibu = request('ibu');
-                $adminDetail->pasangan = request('pasangan');
-                $adminDetail->anak = request('anak');
                 $adminDetail->alamat = request('alamat');
                 $adminDetail->no_hp = request('no_hp');
                 $adminDetail->save();

@@ -149,7 +149,8 @@
                                 class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
-                            <li><a class="dropdown-item" href="#">Profil</a></li>
+                            <li><a class="dropdown-item"
+                                    href="{{ route('admin.profil', auth()->user()->id) }}">Profil</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

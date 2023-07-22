@@ -33,6 +33,9 @@ Route::post('/register', [AuthController::class, 'prosesRegister'])->name('prose
 Route::middleware(['auth'])->group(function () {
     Route::middleware(['admin'])->group(function () {
         Route::get('/dashboard-admin', [DashboardController::class, 'indexAdmin'])->name('admin.index');
+        Route::get('/dashboard-admin/profil/{id}', [DashboardController::class, 'profilAdmin'])->name('admin.profil');
+        Route::get('/dashboard-admin/profil/{id}/edit', [DashboardController::class, 'editProfilAdmin'])->name('edit.admin.profil');
+        Route::put('/dashboard-admin/profil/{id}', [DashboardController::class, 'updateProfilAdmin'])->name('update.admin.profil');
 
         Route::prefix('/dashboard-admin/surat/')->group(function () {
             Route::name('pengantar.')->group(function () {

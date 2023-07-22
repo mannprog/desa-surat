@@ -1,21 +1,21 @@
-@extends('auth.admin.layouts.app', ['title' => 'Edit User'])
+@extends('auth.admin.layouts.app', ['title' => 'Edit Profil Saya'])
 
 @section('content')
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
             <div class="row justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title">Edit User - {{ $admin->name }}</h1>
+                    <h1 class="app-page-title">Edit Profil Saya</h1>
                 </div>
                 <div class="col-auto">
-                    <a href="{{ route('kelola.admin.index') }}" class="btn btn-sm btn-secondary shadow-sm">
+                    <a href="{{ route('admin.profil', auth()->user()->id) }}" class="btn btn-sm btn-secondary shadow-sm">
                         Kembali</a>
                 </div>
             </div>
 
             <div class="app-card app-card-chart h-100 shadow-sm">
                 <div class="app-card-body p-3 p-lg-4">
-                    <form action="{{ route('kelola.admin.update', $admin->id) }}" method="POST"
+                    <form action="{{ route('update.admin.profil', $admin->id) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
