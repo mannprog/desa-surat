@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\SuratKk;
+use App\Models\SuratKtp;
+use App\Models\SuratSkck;
+use App\Models\SuratSktm;
 use App\Models\WargaDetail;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
@@ -16,7 +20,15 @@ class UserWargaController extends Controller
      */
     public function index(UserWargaDataTable $dataTable)
     {
-        return $dataTable->render('auth.admin.pages.users.warga.index');
+        $nspktp = SuratKtp::where('status', 'belumditentukan')->with('user')->get();
+        $nspkk = SuratKk::where('status', 'belumditentukan')->with('user')->get();
+        $nspsktm = SuratSktm::where('status', 'belumditentukan')->with('user')->get();
+        $nspskck = SuratSkck::where('status', 'belumditentukan')->with('user')->get();
+
+        $xdata = array_merge($nspktp->toArray(), $nspkk->toArray(), $nspsktm->toArray(), $nspskck->toArray());
+        $ndata = count($xdata);
+
+        return $dataTable->render('auth.admin.pages.users.warga.index', compact(['nspktp', 'nspkk', 'nspsktm', 'nspskck', 'ndata']));
     }
 
     /**
@@ -25,8 +37,16 @@ class UserWargaController extends Controller
     public function show(string $id)
     {
         $warga = User::with('wargaDetail')->find($id);
+
+        $nspktp = SuratKtp::where('status', 'belumditentukan')->with('user')->get();
+        $nspkk = SuratKk::where('status', 'belumditentukan')->with('user')->get();
+        $nspsktm = SuratSktm::where('status', 'belumditentukan')->with('user')->get();
+        $nspskck = SuratSkck::where('status', 'belumditentukan')->with('user')->get();
+
+        $xdata = array_merge($nspktp->toArray(), $nspkk->toArray(), $nspsktm->toArray(), $nspskck->toArray());
+        $ndata = count($xdata);
         
-        return view('auth.admin.pages.users.warga.detail', compact('warga'));
+        return view('auth.admin.pages.users.warga.detail', compact(['warga', 'nspktp', 'nspkk', 'nspsktm', 'nspskck', 'ndata']));
     }
 
     /**
@@ -94,7 +114,15 @@ class UserWargaController extends Controller
     {
         $warga = User::with(['wargaDetail'])->findOrFail($id);
 
-        return view('auth.admin.pages.users.warga.component.edit', compact('warga'));
+        $nspktp = SuratKtp::where('status', 'belumditentukan')->with('user')->get();
+        $nspkk = SuratKk::where('status', 'belumditentukan')->with('user')->get();
+        $nspsktm = SuratSktm::where('status', 'belumditentukan')->with('user')->get();
+        $nspskck = SuratSkck::where('status', 'belumditentukan')->with('user')->get();
+
+        $xdata = array_merge($nspktp->toArray(), $nspkk->toArray(), $nspsktm->toArray(), $nspskck->toArray());
+        $ndata = count($xdata);
+
+        return view('auth.admin.pages.users.warga.component.edit', compact(['warga', 'nspktp', 'nspkk', 'nspsktm', 'nspskck', 'ndata']));
     }
 
     /**

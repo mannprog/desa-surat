@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\SuratKk;
+use App\Models\SuratKtp;
+use App\Models\SuratSkck;
+use App\Models\SuratSktm;
 use App\Models\AdminDetail;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Illuminate\Support\Facades\DB;
-use App\DataTables\UserAdminDataTable;
 use Illuminate\Http\RedirectResponse;
+use App\DataTables\UserAdminDataTable;
 
 class UserAdminController extends Controller
 {
@@ -17,7 +21,15 @@ class UserAdminController extends Controller
      */
     public function index(UserAdminDataTable $dataTable)
     {
-        return $dataTable->render('auth.admin.pages.users.admin.index');
+        $nspktp = SuratKtp::where('status', 'belumditentukan')->with('user')->get();
+        $nspkk = SuratKk::where('status', 'belumditentukan')->with('user')->get();
+        $nspsktm = SuratSktm::where('status', 'belumditentukan')->with('user')->get();
+        $nspskck = SuratSkck::where('status', 'belumditentukan')->with('user')->get();
+
+        $xdata = array_merge($nspktp->toArray(), $nspkk->toArray(), $nspsktm->toArray(), $nspskck->toArray());
+        $ndata = count($xdata);
+
+        return $dataTable->render('auth.admin.pages.users.admin.index', compact(['nspktp', 'nspkk', 'nspsktm', 'nspskck', 'ndata']));
     }
 
     /**
@@ -26,8 +38,16 @@ class UserAdminController extends Controller
     public function show(string $id)
     {
         $admin = User::with('adminDetail')->find($id);
+
+        $nspktp = SuratKtp::where('status', 'belumditentukan')->with('user')->get();
+        $nspkk = SuratKk::where('status', 'belumditentukan')->with('user')->get();
+        $nspsktm = SuratSktm::where('status', 'belumditentukan')->with('user')->get();
+        $nspskck = SuratSkck::where('status', 'belumditentukan')->with('user')->get();
+
+        $xdata = array_merge($nspktp->toArray(), $nspkk->toArray(), $nspsktm->toArray(), $nspskck->toArray());
+        $ndata = count($xdata);
         
-        return view('auth.admin.pages.users.admin.detail', compact('admin'));
+        return view('auth.admin.pages.users.admin.detail', compact(['admin', 'nspktp', 'nspkk', 'nspsktm', 'nspskck', 'ndata']));
     }
 
     /**
@@ -99,7 +119,15 @@ class UserAdminController extends Controller
     {
         $admin = User::with(['adminDetail'])->findOrFail($id);
 
-        return view('auth.admin.pages.users.admin.component.edit', compact('admin'));
+        $nspktp = SuratKtp::where('status', 'belumditentukan')->with('user')->get();
+        $nspkk = SuratKk::where('status', 'belumditentukan')->with('user')->get();
+        $nspsktm = SuratSktm::where('status', 'belumditentukan')->with('user')->get();
+        $nspskck = SuratSkck::where('status', 'belumditentukan')->with('user')->get();
+
+        $xdata = array_merge($nspktp->toArray(), $nspkk->toArray(), $nspsktm->toArray(), $nspskck->toArray());
+        $ndata = count($xdata);
+
+        return view('auth.admin.pages.users.admin.component.edit', compact(['admin', 'nspktp', 'nspkk', 'nspsktm', 'nspskck', 'ndata']));
     }
 
     /**
