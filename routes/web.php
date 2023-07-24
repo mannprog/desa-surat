@@ -78,9 +78,13 @@ Route::middleware(['auth'])->group(function () {
             Route::name('laporan.')->group(function () {
                 // Data
                 Route::get('ktp', [LaporanController::class, 'dataSuratKtp'])->name('ktp.index');
+                Route::get('ktp/export', [LaporanController::class, 'exportSuratKtp'])->name('ktp.export');
                 Route::get('kk', [LaporanController::class, 'dataSuratKk'])->name('kk.index');
+                Route::get('kk/export', [LaporanController::class, 'exportSuratKk'])->name('kk.export');
                 Route::get('sktm', [LaporanController::class, 'dataSuratSktm'])->name('sktm.index');
+                Route::get('sktm/export', [LaporanController::class, 'exportSuratSktm'])->name('sktm.export');
                 Route::get('skck', [LaporanController::class, 'dataSuratSkck'])->name('skck.index');
+                Route::get('skck/export', [LaporanController::class, 'exportSuratSkck'])->name('skck.export');
             });
         });
 

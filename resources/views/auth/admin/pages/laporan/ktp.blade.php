@@ -7,6 +7,11 @@
                 <div class="col-auto">
                     <h1 class="app-page-title">Laporan Surat Pengantar KTP</h1>
                 </div>
+                <div class="col-auto">
+                    <a href="{{ route('laporan.ktp.export') }}" target="_blank" class="btn btn-sm btn-primary shadow-sm"><i
+                            class="fas fa-download me-2"></i>
+                        Download</a>
+                </div>
             </div>
 
             <div class="app-card app-card-chart h-100 shadow-sm">
