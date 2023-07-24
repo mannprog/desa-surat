@@ -7,46 +7,40 @@
         <div class="carousel-inner" role="listbox">
 
             <!-- Slide 1 -->
-            <div class="carousel-item active" style="background-image: url(assets/img/slide/slide-1.jpg)">
+            <div class="carousel-item active" style="background-image: url(landing/img/slide/slide1.png)">
                 <div class="carousel-container">
                     <div class="container">
-                        <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Sailor</span></h2>
-                        <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui
-                            aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem
-                            mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti
-                            vel. Minus et tempore modi architecto.</p>
-                        <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read
-                            More</a>
+                        <h2 class="animate__animated animate__fadeInDown mb-0">Selamat Datang <span>diWebsite</span>
+                        </h2>
+                        <h2 class="animate__animated animate__fadeInDown">Desa Cileles</h5>
+                            <p class="animate__animated animate__fadeInUp">Desa Cileles merupakan sebuah desa yang
+                                berada di wilayah Kecamatan Jatinangor. Lokasinya berada di bagian utara wilayah
+                                kecamatan dengan jarak tempuh ke pusat Kecamatan Jatinangor sekitar dua kilometer.
+                                Wilayah Desa Cileles ini mencakup sebagian wilayah kampus Universitas Padjadjaran bagian
+                                utara.</p>
+                            <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Lihat
+                                Selengkapnya</a>
                     </div>
                 </div>
             </div>
 
             <!-- Slide 2 -->
-            <div class="carousel-item" style="background-image: url(assets/img/slide/slide-2.jpg)">
+            <div class="carousel-item active" style="background-image: url(landing/img/slide/slide2.jpg)">
                 <div class="carousel-container">
                     <div class="container">
-                        <h2 class="animate__animated animate__fadeInDown">Lorem Ipsum Dolor</h2>
-                        <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui
-                            aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem
-                            mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti
-                            vel. Minus et tempore modi architecto.</p>
-                        <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read
-                            More</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 3 -->
-            <div class="carousel-item" style="background-image: url(assets/img/slide/slide-3.jpg)">
-                <div class="carousel-container">
-                    <div class="container">
-                        <h2 class="animate__animated animate__fadeInDown">Sequi ea ut et est quaerat</h2>
-                        <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui
-                            aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem
-                            mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti
-                            vel. Minus et tempore modi architecto.</p>
-                        <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read
-                            More</a>
+                        <h2 class="animate__animated animate__fadeInDown mb-0">Selamat Datang <span>diWebsite</span>
+                        </h2>
+                        <h2 class="animate__animated animate__fadeInDown">Desa Cileles</h5>
+                            <p class="animate__animated animate__fadeInUp">Desa Cileles merupakan desa induk dari dua
+                                desa yang dimekarkan. Sebelum terjadi pemekaran Kecamatan Cimanggung menjadi dua
+                                kecamatan, Desa Cileles menjadi bagian dari wilayah Kecamatan Cimanggung. Ketika terjadi
+                                pemekaran Kecamatan Cimanggung menjadi Kecamatan Cimanggung dan Kecamatan Cikeruh, Desa
+                                Cilayung menjadi bagian dari wilayah Kecamatan Cikeruh bersama lima desa lainnya.
+                                Setelah terjadi pemekaran kecamatan ini, Desa Cileles dimekarkan menjadi dua desa yaitu
+                                Desa Cileles dan Desa Cilayung. Desa Cileles mengambil wilayah bagian selatan sementara
+                                Desa Cilayung di bagian utaranya.</p>
+                            <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read
+                                More</a>
                     </div>
                 </div>
             </div>
