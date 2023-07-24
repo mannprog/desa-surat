@@ -28,6 +28,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [LandingController::class, 'index'])->name('landing.index');
+Route::get('/kontak', [LandingController::class, 'kontak'])->name('landing.kontak');
+Route::get('/surat/ktp', [LandingController::class, 'ktp'])->name('landing.ktp');
+Route::get('/surat/kk', [LandingController::class, 'kk'])->name('landing.kk');
+Route::get('/surat/sktm', [LandingController::class, 'sktm'])->name('landing.sktm');
+Route::get('/surat/skck', [LandingController::class, 'skck'])->name('landing.skck');
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'prosesLogin'])->name('prosesLogin');

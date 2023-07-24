@@ -24,7 +24,8 @@
 
         <nav id="navbar" class="navbar">
             <ul>
-                <li><a href="index.html" class="active">Beranda</a></li>
+                <li><a href="{{ route('landing.index') }}"
+                        class="{{ Route::is('landing.index') ? 'active' : '' }}">Beranda</a></li>
                 <li class="dropdown"><a href="#"><span>Profil</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
                         <li><a href="#">Tentang Desa</a></li>
@@ -46,10 +47,14 @@
                         <li class="dropdown"><a href="#"><span>Surat Pengantar</span> <i
                                     class="bi bi-chevron-right"></i></a>
                             <ul>
-                                <li><a href="#">KTP</a></li>
-                                <li><a href="#">KK</a></li>
-                                <li><a href="#">SKTM</a></li>
-                                <li><a href="#">SKCK</a></li>
+                                <li><a href="{{ route('landing.ktp') }}"
+                                        class="{{ Route::is('landing.ktp') ? 'active' : '' }}">KTP</a></li>
+                                <li><a href="{{ route('landing.kk') }}"
+                                        class="{{ Route::is('landing.kk') ? 'active' : '' }}">KK</a></li>
+                                <li><a href="{{ route('landing.sktm') }}"
+                                        class="{{ Route::is('landing.sktm') ? 'active' : '' }}">SKTM</a></li>
+                                <li><a href="{{ route('landing.skck') }}"
+                                        class="{{ Route::is('landing.skck') ? 'active' : '' }}">SKCK</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -62,7 +67,8 @@
                         <li><a href="#">Galeri</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Kontak</a></li>
+                <li><a href="{{ route('landing.kontak') }}"
+                        class="{{ Route::is('landing.kontak') ? 'active' : '' }}">Kontak</a></li>
                 @if (Route::has('login'))
                     @auth
                         @if (Auth::user()->is_admin == 0)

@@ -8,8 +8,8 @@
                     <div class="footer-info">
                         <h3>Desa Cileles</h3>
                         <p>
-                            Jl. Cikuda - Nanggerang KM. 2 Cileles <br>
-                            Jatinangor, Sumedang (45363)<br><br>
+                            Jl. Cikuda No.18, Cileles, Kec. Jatinangor,<br>
+                            Kabupaten Sumedang, Jawa Barat 45363<br><br>
                             <strong>Phone:</strong> +1 5589 55488 55<br>
                             <strong>Email:</strong> info@example.com<br>
                         </p>
