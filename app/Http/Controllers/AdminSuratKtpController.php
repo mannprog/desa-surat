@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\SuratKk;
 use App\Models\SuratKtp;
+use App\Models\SuratSkck;
+use App\Models\SuratSktm;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 use App\DataTables\AdminSuratKtpDataTable;
 
 class AdminSuratKtpController extends Controller
@@ -22,8 +25,16 @@ class AdminSuratKtpController extends Controller
         $data = User::all();
         $filteredUsers = $data->where('is_admin', 1);
         $user = $filteredUsers->values()->all();
+        
+        $nspktp = SuratKtp::where('status', 'belumditentukan')->with('user')->get();
+        $nspkk = SuratKk::where('status', 'belumditentukan')->with('user')->get();
+        $nspsktm = SuratSktm::where('status', 'belumditentukan')->with('user')->get();
+        $nspskck = SuratSkck::where('status', 'belumditentukan')->with('user')->get();
 
-        return $dataTable->render('auth.admin.pages.surat.ktp.index', compact('user'));
+        $xdata = array_merge($nspktp->toArray(), $nspkk->toArray(), $nspsktm->toArray(), $nspskck->toArray());
+        $ndata = count($xdata);
+
+        return $dataTable->render('auth.admin.pages.surat.ktp.index', compact(['user', 'nspktp', 'nspkk', 'nspsktm', 'nspskck', 'ndata']));
     }
 
     /**
@@ -70,8 +81,16 @@ class AdminSuratKtpController extends Controller
     public function show(string $id)
     {
         $data = SuratKtp::with(['user'])->find($id);
+        
+        $nspktp = SuratKtp::where('status', 'belumditentukan')->with('user')->get();
+        $nspkk = SuratKk::where('status', 'belumditentukan')->with('user')->get();
+        $nspsktm = SuratSktm::where('status', 'belumditentukan')->with('user')->get();
+        $nspskck = SuratSkck::where('status', 'belumditentukan')->with('user')->get();
 
-        return view('auth.admin.pages.surat.ktp.detail', compact('data'));
+        $xdata = array_merge($nspktp->toArray(), $nspkk->toArray(), $nspsktm->toArray(), $nspskck->toArray());
+        $ndata = count($xdata);
+
+        return view('auth.admin.pages.surat.ktp.detail', compact(['data', 'nspktp', 'nspkk', 'nspsktm', 'nspskck', 'ndata']));
     }
 
     public function rejectPermohonan($id)

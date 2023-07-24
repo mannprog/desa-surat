@@ -23,21 +23,45 @@ class DashboardController extends Controller
         $spsktm = SuratSktm::where('status', 'belumditentukan')->count();
         $spskck = SuratSkck::where('status', 'belumditentukan')->count();
 
-        return view('auth.admin.dashboard', compact(['spktp', 'spkk', 'spsktm', 'spskck']));
+        $nspktp = SuratKtp::where('status', 'belumditentukan')->with('user')->get();
+        $nspkk = SuratKk::where('status', 'belumditentukan')->with('user')->get();
+        $nspsktm = SuratSktm::where('status', 'belumditentukan')->with('user')->get();
+        $nspskck = SuratSkck::where('status', 'belumditentukan')->with('user')->get();
+
+        $xdata = array_merge($nspktp->toArray(), $nspkk->toArray(), $nspsktm->toArray(), $nspskck->toArray());
+        $ndata = count($xdata);
+
+        return view('auth.admin.dashboard', compact(['spktp', 'spkk', 'spsktm', 'spskck', 'nspktp', 'nspkk', 'nspsktm', 'nspskck', 'ndata']));
     }
 
     public function profilAdmin($id)
     {
         $admin = User::with('adminDetail')->find($id);
 
-        return view('auth.admin.pages.profil.index', compact('admin'));
+        $nspktp = SuratKtp::where('status', 'belumditentukan')->with('user')->get();
+        $nspkk = SuratKk::where('status', 'belumditentukan')->with('user')->get();
+        $nspsktm = SuratSktm::where('status', 'belumditentukan')->with('user')->get();
+        $nspskck = SuratSkck::where('status', 'belumditentukan')->with('user')->get();
+
+        $xdata = array_merge($nspktp->toArray(), $nspkk->toArray(), $nspsktm->toArray(), $nspskck->toArray());
+        $ndata = count($xdata);
+
+        return view('auth.admin.pages.profil.index', compact(['admin', 'nspktp', 'nspkk', 'nspsktm', 'nspskck', 'ndata']));
     }
 
     public function editProfilAdmin($id)
     {
         $admin = User::with('adminDetail')->find($id);
 
-        return view('auth.admin.pages.profil.edit', compact('admin'));
+        $nspktp = SuratKtp::where('status', 'belumditentukan')->with('user')->get();
+        $nspkk = SuratKk::where('status', 'belumditentukan')->with('user')->get();
+        $nspsktm = SuratSktm::where('status', 'belumditentukan')->with('user')->get();
+        $nspskck = SuratSkck::where('status', 'belumditentukan')->with('user')->get();
+
+        $xdata = array_merge($nspktp->toArray(), $nspkk->toArray(), $nspsktm->toArray(), $nspskck->toArray());
+        $ndata = count($xdata);
+
+        return view('auth.admin.pages.profil.edit', compact(['admin', 'nspktp', 'nspkk', 'nspsktm', 'nspskck', 'ndata']));
     }
 
     public function updateProfilAdmin($id): RedirectResponse

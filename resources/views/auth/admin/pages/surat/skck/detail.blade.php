@@ -1,11 +1,11 @@
-@extends('auth.admin.layouts.app', ['title' => 'Detail Permohonan'])
+@extends('auth.admin.layouts.app', ['title' => 'Detail Permohonan SPSKCK'])
 
 @section('content')
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
             <div class="row justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title">Detail Permohonan - {{ $data->user->name }}</h1>
+                    <h1 class="app-page-title">Detail Permohonan SPSKCK - {{ $data->user->name }}</h1>
                 </div>
                 <div class="col-auto">
                     <a href="{{ route('pengantar.skck.index') }}" class="btn btn-sm btn-secondary shadow">

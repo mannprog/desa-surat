@@ -1,11 +1,11 @@
-@extends('auth.admin.layouts.app', ['title' => 'Detail Permohonan'])
+@extends('auth.admin.layouts.app', ['title' => 'Detail Permohonan SPSKTM'])
 
 @section('content')
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
             <div class="row justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title">Detail Permohonan - {{ $data->user->name }}</h1>
+                    <h1 class="app-page-title">Detail Permohonan SPSKTM - {{ $data->user->name }}</h1>
                 </div>
                 <div class="col-auto">
                     <a href="{{ route('pengantar.sktm.index') }}" class="btn btn-sm btn-secondary shadow">
