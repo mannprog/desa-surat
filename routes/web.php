@@ -10,6 +10,10 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\UserAdminController;
 use App\Http\Controllers\UserWargaController;
+use App\Http\Controllers\WargaSuratKkController;
+use App\Http\Controllers\WargaSuratKtpController;
+use App\Http\Controllers\WargaSuratSkckController;
+use App\Http\Controllers\WargaSuratSktmController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -89,6 +93,17 @@ Route::middleware(['auth'])->group(function () {
     });
     
     Route::get('/dashboard-warga', [DashboardController::class, 'indexWarga'])->name('warga.index');
+    Route::get('/dashboard-warga/profil/{id}', [DashboardController::class, 'profilWarga'])->name('warga.profil');
+    Route::get('/dashboard-warga/profil/{id}/edit', [DashboardController::class, 'editProfilWarga'])->name('edit.warga.profil');
+    Route::put('/dashboard-warga/profil/{id}', [DashboardController::class, 'updateProfilWarga'])->name('update.warga.profil');
+    Route::prefix('/dashboard-warga/surat/')->group(function () {
+        Route::name('surat.')->group(function () {
+            Route::resource('ktp', WargaSuratKtpController::class)->except(['create', 'edit', 'update']);
+            Route::resource('kk', WargaSuratKkController::class)->except(['create', 'edit', 'update']);
+            Route::resource('sktm', WargaSuratSktmController::class)->except(['create', 'edit', 'update']);
+            Route::resource('skck', WargaSuratSkckController::class)->except(['create', 'edit', 'update']);
+        });
+    });
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

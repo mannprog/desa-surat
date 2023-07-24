@@ -143,10 +143,14 @@
 
                     <div class="app-utility-item app-user-dropdown dropdown">
                         <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown"
-                            href="#" role="button" aria-expanded="false"><img
-                                src="{{ asset('admin/images/user.png') }}" alt="user profile"></a>
+                            href="#" role="button" aria-expanded="false">
+                            <span class="me-2 text-gray-600 small">{{ auth()->user()->name }}</span>
+                            <img src="{{ asset('admin/images/profiles/' . auth()->user()->foto) }}"
+                                class="rounded-circle">
+                        </a>
                         <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
-                            <li><a class="dropdown-item" href="#">Profil</a></li>
+                            <li><a class="dropdown-item"
+                                    href="{{ route('warga.profil', auth()->user()->id) }}">Profil</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

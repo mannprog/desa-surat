@@ -14,7 +14,8 @@
             <ul class="app-menu list-unstyled accordion" id="menu-accordion">
                 <li class="nav-item">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                    <a class="nav-link active" href="{{ route('warga.index') }}">
+                    <a class="nav-link {{ Route::is('warga.index') ? 'active' : '' }}"
+                        href="{{ route('warga.index') }}">
                         <span class="nav-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-house-door" viewBox="0 0 16 16">
@@ -27,10 +28,13 @@
                     <!--//nav-link-->
                 </li>
                 <!--//nav-item-->
-                <li class="nav-item">
+                <li class="nav-item has-submenu">
                     <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-                    <a class="nav-link" href="#">
+                    <a class="nav-link submenu-toggle {{ Route::is('surat*') ? 'active' : '' }}" href="#"
+                        data-bs-toggle="collapse" data-bs-target="#submenu-1"
+                        aria-expanded="{{ Route::is('surat*') ? 'true' : 'false' }}" aria-controls="submenu-1">
                         <span class="nav-icon">
+                            <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder"
                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -40,8 +44,37 @@
                             </svg>
                         </span>
                         <span class="nav-link-text">Surat Pengantar</span>
+                        <span class="submenu-arrow">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down"
+                                fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </span>
+                        <!--//submenu-arrow-->
                     </a>
                     <!--//nav-link-->
+                    <div id="submenu-1"
+                        class="collapse submenu submenu-1 collapse {{ Route::is('surat*') ? 'show' : '' }}"
+                        data-bs-parent="#menu-accordion">
+                        <ul class="submenu-list list-unstyled">
+                            <li class="submenu-item"><a
+                                    class="submenu-link {{ Route::is('surat.ktp*') ? 'active' : '' }}"
+                                    href="{{ route('surat.ktp.index') }}">KTP</a></li>
+                            <li class="submenu-item"><a
+                                    class="submenu-link {{ Route::is('surat.kk*') ? 'active' : '' }}"
+                                    href="{{ route('surat.kk.index') }}">KK</a>
+                            </li>
+                            <li class="submenu-item"><a
+                                    class="submenu-link {{ Route::is('surat.sktm*') ? 'active' : '' }}"
+                                    href="{{ route('surat.sktm.index') }}">SKTM</a>
+                            </li>
+                            <li class="submenu-item"><a
+                                    class="submenu-link {{ Route::is('surat.skck*') ? 'active' : '' }}"
+                                    href="{{ route('surat.skck.index') }}">SKCK</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <!--//nav-item-->
             </ul>

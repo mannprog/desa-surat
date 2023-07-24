@@ -103,9 +103,6 @@ class LaporanSuratSkckDataTable extends DataTable
             Column::make('status_permohonan')
                 ->addClass("text-sm font-weight-normal text-wrap")
                 ->title('Status'),
-            Column::make('updated_at_formatted')
-                ->addClass("text-sm font-weight-normal text-wrap")
-                ->title('Tanggal Diedit'),
         ];
     }
 

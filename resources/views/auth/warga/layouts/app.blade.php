@@ -21,6 +21,18 @@
     <!-- App CSS -->
     <link id="theme-style" rel="stylesheet" href="{{ asset('admin/css/portal.css') }}">
 
+    <!-- Custom text editor for this template-->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
+    <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
+
+    <style>
+        trix-toolbar [data-trix-button-group="file-tools"] {
+            display: none;
+        }
+    </style>
+
+    @stack('custom-styles')
+
 </head>
 
 <body class="app">
@@ -81,6 +93,10 @@
     <!-- Page Specific JS -->
     <script src="{{ asset('admin/js/app.js') }}"></script>
 
+    <!-- SweetAlert2 -->
+    <script src="{{ asset('library/http_cdn.jsdelivr.net_npm_sweetalert2@11.js') }}"></script>
+    <script src="{{ asset('library/http_cdnjs.cloudflare.com_ajax_libs_toastr.js_latest_toastr.min.js') }}"></script>
+
     <script>
         $(document).ready(function() {
             $('a[data-toggle="modal"]').click(function() {
@@ -94,7 +110,7 @@
         });
     </script>
 
-    @stack('custom-script')
+    @stack('custom-scripts')
 </body>
 
 </html>

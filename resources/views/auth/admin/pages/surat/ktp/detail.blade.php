@@ -74,7 +74,7 @@
                                 </div>
                                 <div class="row align-items-center">
                                     <div class="col-5 col-lg-3">
-                                        <p>File Kartu Keluarga</p>
+                                        <p>Kartu Keluarga</p>
                                     </div>
                                     <div class="col-1 col-lg-1 text-center">
                                         <p>:</p>
