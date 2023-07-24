@@ -231,6 +231,22 @@
                                         </div>
                                     @endforeach
                                 @endif
+
+                                @if ($ndata == null)
+                                    <div class="item p-3">
+                                        <div class="row gx-2 justify-content-between align-items-center">
+                                            <div class="col">
+                                                <div class="info">
+                                                    <div class="desc">
+                                                        <span class="fw-bold text-center">Belum ada permohonan</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--//col-->
+                                        </div>
+                                        <!--//row-->
+                                    </div>
+                                @endif
                             </div>
                             <!--//dropdown-menu-content-->
 

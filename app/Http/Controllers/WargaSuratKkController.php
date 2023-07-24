@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\SuratKk;
+use App\Models\SuratKtp;
+use App\Models\SuratSkck;
+use App\Models\SuratSktm;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 use App\DataTables\WargaSuratKkDataTable;
 
 class WargaSuratKkController extends Controller
@@ -15,7 +20,15 @@ class WargaSuratKkController extends Controller
      */
     public function index(WargaSuratKkDataTable $dataTable)
     {
-        return $dataTable->render('auth.warga.pages.surat.kk.index');
+        $nspktp = SuratKtp::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+        $nspkk = SuratKk::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+        $nspsktm = SuratSktm::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+        $nspskck = SuratSkck::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+
+        $xdata = array_merge($nspktp->toArray(), $nspkk->toArray(), $nspsktm->toArray(), $nspskck->toArray());
+        $ndata = count($xdata);
+
+        return $dataTable->render('auth.warga.pages.surat.kk.index', compact(['nspktp', 'nspkk', 'nspsktm', 'nspskck', 'ndata']));
     }
 
     /**
@@ -70,7 +83,15 @@ class WargaSuratKkController extends Controller
     {
         $data = SuratKk::with(['user'])->find($id);
 
-        return view('auth.warga.pages.surat.kk.detail', compact('data'));
+        $nspktp = SuratKtp::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+        $nspkk = SuratKk::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+        $nspsktm = SuratSktm::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+        $nspskck = SuratSkck::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+
+        $xdata = array_merge($nspktp->toArray(), $nspkk->toArray(), $nspsktm->toArray(), $nspskck->toArray());
+        $ndata = count($xdata);
+
+        return view('auth.warga.pages.surat.kk.detail', compact(['data', 'nspktp', 'nspkk', 'nspsktm', 'nspskck', 'ndata']));
     }
 
     /**
@@ -79,8 +100,8 @@ class WargaSuratKkController extends Controller
     public function destroy(string $id)
     {
         try {
-            $spsktm = SuratKk::findOrFail($id);
-            $spsktm->delete();
+            $spkk = SuratKk::findOrFail($id);
+            $spkk->delete();
         } catch (InvalidArgumentException $e) {
             return response()->json([
                 'message' => $e->getMessage(),
@@ -89,5 +110,17 @@ class WargaSuratKkController extends Controller
         return response()->json([
             'message' => 'Permohonan pembuatan Surat Pengantar Kartu Keluarga berhasil dihapus',
         ]);
+    }
+
+    public function download($spkk)
+    {
+        $data = SuratKk::where('spkk', $spkk)->firstOrFail();
+        $filePath = public_path('file/surat/kk/' . $data->spkk);
+
+        $mime = Storage::mimeType($filePath);
+
+        $originalFileName = $data->spkk;
+
+        return Response::download($filePath, $originalFileName, ['Content-Type' => $mime]);
     }
 }

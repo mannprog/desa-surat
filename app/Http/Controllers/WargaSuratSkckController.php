@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SuratKk;
+use App\Models\SuratKtp;
+use App\Models\SuratSkck;
+use App\Models\SuratSktm;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 use App\DataTables\WargaSuratSkckDataTable;
-use App\Models\SuratSkck;
 
 class WargaSuratSkckController extends Controller
 {
@@ -15,7 +20,15 @@ class WargaSuratSkckController extends Controller
      */
     public function index(WargaSuratSkckDataTable $dataTable)
     {
-        return $dataTable->render('auth.warga.pages.surat.skck.index');
+        $nspktp = SuratKtp::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+        $nspkk = SuratKk::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+        $nspsktm = SuratSktm::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+        $nspskck = SuratSkck::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+
+        $xdata = array_merge($nspktp->toArray(), $nspkk->toArray(), $nspsktm->toArray(), $nspskck->toArray());
+        $ndata = count($xdata);
+
+        return $dataTable->render('auth.warga.pages.surat.skck.index', compact(['nspktp', 'nspkk', 'nspsktm', 'nspskck', 'ndata']));
     }
 
     /**
@@ -70,7 +83,15 @@ class WargaSuratSkckController extends Controller
     {
         $data = SuratSkck::with(['user'])->find($id);
 
-        return view('auth.warga.pages.surat.skck.detail', compact('data'));
+        $nspktp = SuratKtp::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+        $nspkk = SuratKk::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+        $nspsktm = SuratSktm::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+        $nspskck = SuratSkck::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+
+        $xdata = array_merge($nspktp->toArray(), $nspkk->toArray(), $nspsktm->toArray(), $nspskck->toArray());
+        $ndata = count($xdata);
+
+        return view('auth.warga.pages.surat.skck.detail', compact(['data', 'nspktp', 'nspkk', 'nspsktm', 'nspskck', 'ndata']));
     }
 
     /**
@@ -89,5 +110,17 @@ class WargaSuratSkckController extends Controller
         return response()->json([
             'message' => 'Permohonan pembuatan Surat Pengantar SKCK berhasil dihapus',
         ]);
+    }
+
+    public function download($spskck)
+    {
+        $data = SuratSkck::where('spskck', $spskck)->firstOrFail();
+        $filePath = public_path('file/surat/skck/' . $data->spskck);
+
+        $mime = Storage::mimeType($filePath);
+
+        $originalFileName = $data->spskck;
+
+        return Response::download($filePath, $originalFileName, ['Content-Type' => $mime]);
     }
 }

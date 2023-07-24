@@ -1,13 +1,18 @@
-@extends('auth.warga.layouts.app', ['title' => 'Detail Permohonan'])
+@extends('auth.warga.layouts.app', ['title' => 'Detail Permohonan SPSKCK'])
 
 @section('content')
     <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
             <div class="row justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title">Detail Permohonan - {{ $data->user->name }}</h1>
+                    <h1 class="app-page-title">Detail Permohonan SPSKCK - {{ $data->user->name }}</h1>
                 </div>
                 <div class="col-auto">
+                    @if ($data->status === 'selesai')
+                        <a href="{{ route('surat.skck.download', $data->spskck) }}" class="btn btn-sm btn-success shadow"><i
+                                class="fas fa-download"></i>
+                            Download</a>
+                    @endif
                     <a href="{{ route('surat.skck.index') }}" class="btn btn-sm btn-secondary shadow">
                         Kembali</a>
                 </div>

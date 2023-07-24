@@ -99,9 +99,13 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('/dashboard-warga/surat/')->group(function () {
         Route::name('surat.')->group(function () {
             Route::resource('ktp', WargaSuratKtpController::class)->except(['create', 'edit', 'update']);
+            Route::get('ktp/download/{spktp}', [WargaSuratKtpController::class, 'download'])->name('ktp.download');
             Route::resource('kk', WargaSuratKkController::class)->except(['create', 'edit', 'update']);
+            Route::get('kk/download/{spkk}', [WargaSuratKkController::class, 'download'])->name('kk.download');
             Route::resource('sktm', WargaSuratSktmController::class)->except(['create', 'edit', 'update']);
+            Route::get('sktm/download/{spsktm}', [WargaSuratSktmController::class, 'download'])->name('sktm.download');
             Route::resource('skck', WargaSuratSkckController::class)->except(['create', 'edit', 'update']);
+            Route::get('skck/download/{spskck}', [WargaSuratSkckController::class, 'download'])->name('skck.download');
         });
     });
 

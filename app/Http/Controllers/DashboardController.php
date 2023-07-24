@@ -136,21 +136,45 @@ class DashboardController extends Controller
         $spsktm = SuratSktm::where('status', 'belumditentukan')->count();
         $spskck = SuratSkck::where('status', 'belumditentukan')->count();
 
-        return view('auth.warga.dashboard', compact(['spktp', 'spkk', 'spsktm', 'spskck']));
+        $nspktp = SuratKtp::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+        $nspkk = SuratKk::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+        $nspsktm = SuratSktm::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+        $nspskck = SuratSkck::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+
+        $xdata = array_merge($nspktp->toArray(), $nspkk->toArray(), $nspsktm->toArray(), $nspskck->toArray());
+        $ndata = count($xdata);
+
+        return view('auth.warga.dashboard', compact(['spktp', 'spkk', 'spsktm', 'spskck', 'nspktp', 'nspkk', 'nspsktm', 'nspskck', 'ndata']));
     }
 
     public function profilWarga($id)
     {
         $warga = User::with('wargaDetail')->find($id);
 
-        return view('auth.warga.pages.profil.index', compact('warga'));
+        $nspktp = SuratKtp::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+        $nspkk = SuratKk::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+        $nspsktm = SuratSktm::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+        $nspskck = SuratSkck::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+
+        $xdata = array_merge($nspktp->toArray(), $nspkk->toArray(), $nspsktm->toArray(), $nspskck->toArray());
+        $ndata = count($xdata);
+
+        return view('auth.warga.pages.profil.index', compact(['warga', 'nspktp', 'nspkk', 'nspsktm', 'nspskck', 'ndata']));
     }
 
     public function editProfilWarga($id)
     {
         $warga = User::with('wargaDetail')->find($id);
 
-        return view('auth.warga.pages.profil.edit', compact('warga'));
+        $nspktp = SuratKtp::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+        $nspkk = SuratKk::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+        $nspsktm = SuratSktm::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+        $nspskck = SuratSkck::whereIn('status', ['tolak', 'proses', 'selesai'])->with('user')->get();
+
+        $xdata = array_merge($nspktp->toArray(), $nspkk->toArray(), $nspsktm->toArray(), $nspskck->toArray());
+        $ndata = count($xdata);
+
+        return view('auth.warga.pages.profil.edit', compact(['warga', 'nspktp', 'nspkk', 'nspsktm', 'nspskck', 'ndata']));
     }
 
     public function updateProfilWarga($id): RedirectResponse
