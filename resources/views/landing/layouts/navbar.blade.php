@@ -63,7 +63,27 @@
                     </ul>
                 </li>
                 <li><a href="#">Kontak</a></li>
-                <li><a href="{{ route('login') }}" class="getstarted">Login</a></li>
+                @if (Route::has('login'))
+                    @auth
+                        @if (Auth::user()->is_admin == 0)
+                            <li class="dropdown"><a href="#"><span>{{ auth()->user()->name }}</span> <i
+                                        class="bi bi-chevron-down"></i></a>
+                                <ul>
+                                    <li><a href="{{ route('admin.index') }}">Dashboard</a></li>
+                                </ul>
+                            </li>
+                        @else
+                            <li class="dropdown"><a href="#"><span>{{ auth()->user()->name }}</span> <i
+                                        class="bi bi-chevron-down"></i></a>
+                                <ul>
+                                    <li><a href="{{ route('warga.index') }}">Dashboard</a></li>
+                                </ul>
+                            </li>
+                        @endif
+                    @else
+                        <li><a href="{{ route('login') }}" class="getstarted">Login</a></li>
+                    @endauth
+                @endif
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->

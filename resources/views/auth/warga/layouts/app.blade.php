@@ -70,7 +70,7 @@
                 </div>
                 <div class="modal-body">Pilih tombol "Logout" dibawah jika kamu yakin untuk mengakhiri sesi masuk.</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Tutup</button>
                     <form action="{{ route('logout') }}" method="post">
                         @csrf
                         <button class="btn btn-primary">Logout</button>
