@@ -29,9 +29,9 @@ class AuthController extends Controller
         if (Auth::attempt($data)) {
             Auth::check();
             if (Auth::user()->is_admin == 0) {
-                return redirect()->to('/dashboard-admin');
+                return redirect()->route('admin.index');
             } else {
-                return redirect()->to('/dashboard-warga');
+                return redirect()->route('warga.index');
             }
         }
 
